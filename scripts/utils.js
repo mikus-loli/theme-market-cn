@@ -10,80 +10,131 @@ const path = require('path');
 const https = require('https');
 const http = require('http');
 
+const MAX_REDIRECTS = 5;
+
 /**
- * 下载单个文件到指定路径（支持重定向）
+ * 下载单个文件到指定路径（正确跟随重定向 + 整体超时保护）
  * @param {string} url 下载地址
  * @param {string} destPath 目标路径
  * @param {object} options { timeoutMs, retries, retryDelayMs, logger }
  */
 function downloadFile(url, destPath, options = {}) {
   const { timeoutMs = 60000, retries = 3, retryDelayMs = 2000, logger } = options;
+  // 整体硬超时：所有重试 + 重定向总耗时上限，防止挂起
+  const overallDeadline = timeoutMs * (retries + 1) * (MAX_REDIRECTS + 1) + retryDelayMs * retries;
+
   return new Promise((resolve, reject) => {
-    const attempt = (left, err) => {
+    let overallTimer = null;
+    let settled = false;
+
+    const finish = (fn, value) => {
+      if (settled) return;
+      settled = true;
+      if (overallTimer) clearTimeout(overallTimer);
+      fn(value);
+    };
+
+    overallTimer = setTimeout(() => {
+      finish(reject, new Error(`整体超时(>${overallDeadline}ms): ${url}`));
+    }, overallDeadline);
+
+    // currentUrl 在重定向链中逐步更新
+    const attempt = (currentUrl, left, err, redirectsLeft) => {
       if (left < 0) {
-        reject(err || new Error(`下载失败: ${url}`));
+        finish(reject, err || new Error(`下载失败: ${url}`));
         return;
       }
-      const protocol = url.startsWith('https') ? https : http;
-      const req = protocol.get(url, { timeout: timeoutMs }, (res) => {
-        // 处理重定向
+      const protocol = currentUrl.startsWith('https') ? https : http;
+      const req = protocol.get(currentUrl, { timeout: timeoutMs }, (res) => {
+        // 处理重定向：使用 res.headers.location 作为新 URL
         if ([301, 302, 303, 307, 308].includes(res.statusCode) && res.headers.location) {
           res.resume();
-          attempt(left, null, res.headers.location);
+          if (redirectsLeft <= 0) {
+            const e = new Error(`重定向次数超限(${MAX_REDIRECTS}): ${url}`);
+            if (logger) logger.warn(`重定向超限，剩余重试 ${left}: ${url}`);
+            setTimeout(() => attempt(url, left - 1, e, MAX_REDIRECTS), retryDelayMs);
+            return;
+          }
+          const nextUrl = new URL(res.headers.location, currentUrl).toString();
+          if (logger) logger.debug(`重定向 ${res.statusCode}: ${currentUrl} -> ${nextUrl}`);
+          // 重定向不消耗重试次数，仅减少 redirectsLeft
+          attempt(nextUrl, left, null, redirectsLeft - 1);
           return;
         }
         if (res.statusCode !== 200) {
           res.resume();
-          const e = new Error(`HTTP ${res.statusCode}: ${url}`);
+          const e = new Error(`HTTP ${res.statusCode}: ${currentUrl}`);
           if (logger) logger.warn(`下载失败(${res.statusCode})，剩余重试 ${left}: ${url}`);
-          setTimeout(() => attempt(left - 1, e), retryDelayMs);
+          setTimeout(() => attempt(url, left - 1, e, MAX_REDIRECTS), retryDelayMs);
           return;
         }
         const file = fs.createWriteStream(destPath);
         res.pipe(file);
-        file.on('finish', () => file.close(() => resolve(destPath)));
+        file.on('finish', () => file.close(() => finish(resolve, destPath)));
         file.on('error', (e) => {
           fs.unlink(destPath, () => {});
           if (logger) logger.warn(`写入文件失败，剩余重试 ${left}: ${url} - ${e.message}`);
-          setTimeout(() => attempt(left - 1, e), retryDelayMs);
+          setTimeout(() => attempt(url, left - 1, e, MAX_REDIRECTS), retryDelayMs);
         });
       });
       req.on('timeout', () => {
         req.destroy();
         if (logger) logger.warn(`下载超时，剩余重试 ${left}: ${url}`);
-        setTimeout(() => attempt(left - 1, new Error(`timeout: ${url}`)), retryDelayMs);
+        setTimeout(() => attempt(url, left - 1, new Error(`timeout: ${url}`), MAX_REDIRECTS), retryDelayMs);
       });
       req.on('error', (e) => {
         if (logger) logger.warn(`请求失败，剩余重试 ${left}: ${url} - ${e.message}`);
-        setTimeout(() => attempt(left - 1, e), retryDelayMs);
+        setTimeout(() => attempt(url, left - 1, e, MAX_REDIRECTS), retryDelayMs);
       });
     };
-    attempt(retries, null);
+    attempt(url, retries, null, MAX_REDIRECTS);
   });
 }
 
 /**
- * 简单的 JSON 请求
+ * 简单的 JSON 请求（正确跟随重定向）
  */
 function fetchJson(url, options = {}) {
   const { timeoutMs = 30000, retries = 3, retryDelayMs = 2000, headers = {} } = options;
+  const overallDeadline = timeoutMs * (retries + 1) * (MAX_REDIRECTS + 1) + retryDelayMs * retries;
+
   return new Promise((resolve, reject) => {
-    const attempt = (left, err) => {
+    let overallTimer = null;
+    let settled = false;
+
+    const finish = (fn, value) => {
+      if (settled) return;
+      settled = true;
+      if (overallTimer) clearTimeout(overallTimer);
+      fn(value);
+    };
+
+    overallTimer = setTimeout(() => {
+      finish(reject, new Error(`整体超时(>${overallDeadline}ms): ${url}`));
+    }, overallDeadline);
+
+    const attempt = (currentUrl, left, err, redirectsLeft) => {
       if (left < 0) {
-        reject(err || new Error(`请求失败: ${url}`));
+        finish(reject, err || new Error(`请求失败: ${url}`));
         return;
       }
-      const protocol = url.startsWith('https') ? https : http;
-      const req = protocol.get(url, { timeout: timeoutMs, headers }, (res) => {
+      const protocol = currentUrl.startsWith('https') ? https : http;
+      const req = protocol.get(currentUrl, { timeout: timeoutMs, headers }, (res) => {
         if ([301, 302, 303, 307, 308].includes(res.statusCode) && res.headers.location) {
           res.resume();
-          attempt(left, null);
+          if (redirectsLeft <= 0) {
+            const e = new Error(`重定向次数超限(${MAX_REDIRECTS}): ${url}`);
+            setTimeout(() => attempt(url, left - 1, e, MAX_REDIRECTS), retryDelayMs);
+            return;
+          }
+          const nextUrl = new URL(res.headers.location, currentUrl).toString();
+          attempt(nextUrl, left, null, redirectsLeft - 1);
           return;
         }
         if (res.statusCode !== 200) {
           res.resume();
-          const e = new Error(`HTTP ${res.statusCode}: ${url}`);
-          setTimeout(() => attempt(left - 1, e), retryDelayMs);
+          const e = new Error(`HTTP ${res.statusCode}: ${currentUrl}`);
+          setTimeout(() => attempt(url, left - 1, e, MAX_REDIRECTS), retryDelayMs);
           return;
         }
         let data = '';
@@ -91,21 +142,21 @@ function fetchJson(url, options = {}) {
         res.on('data', (chunk) => (data += chunk));
         res.on('end', () => {
           try {
-            resolve(JSON.parse(data));
+            finish(resolve, JSON.parse(data));
           } catch (e) {
-            attempt(left - 1, e);
+            attempt(url, left - 1, e, MAX_REDIRECTS);
           }
         });
       });
       req.on('timeout', () => {
         req.destroy();
-        setTimeout(() => attempt(left - 1, new Error(`timeout: ${url}`)), retryDelayMs);
+        setTimeout(() => attempt(url, left - 1, new Error(`timeout: ${url}`), MAX_REDIRECTS), retryDelayMs);
       });
       req.on('error', (e) => {
-        setTimeout(() => attempt(left - 1, e), retryDelayMs);
+        setTimeout(() => attempt(url, left - 1, e, MAX_REDIRECTS), retryDelayMs);
       });
     };
-    attempt(retries, null);
+    attempt(url, retries, null, MAX_REDIRECTS);
   });
 }
 
