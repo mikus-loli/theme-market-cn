@@ -7,63 +7,118 @@
     <meta name="description" content="Komari 主题市场 - 自动同步上游仓库，国内 CDN 加速访问">
     <title>Komari Market - 主题市场</title>
     <style>
-        /* ========== 设计系统 ========== */
+        /* ========== 设计系统 - 暗色 ========== */
         :root {
-            /* 主色板 - 精致的紫蓝色系 */
             --primary: #6366f1;
             --primary-dark: #4f46e5;
             --primary-light: #a5b4fc;
             --primary-glow: rgba(99, 102, 241, 0.4);
-
-            /* 辅助色 */
             --secondary: #06b6d4;
             --accent: #f472b6;
             --success: #22c55e;
             --warning: #f59e0b;
-
-            /* 背景层级 */
             --bg: #0b1120;
             --bg-soft: #0f172a;
             --surface: rgba(30, 41, 59, 0.7);
             --surface-hover: rgba(30, 41, 59, 0.9);
             --surface-solid: #1e293b;
-
-            /* 文字层级 */
             --text: #f8fafc;
             --text-secondary: #cbd5e1;
             --text-muted: #94a3b8;
             --text-dim: #64748b;
-
-            /* 边框 */
             --border: rgba(148, 163, 184, 0.12);
             --border-hover: rgba(148, 163, 184, 0.25);
             --border-active: rgba(99, 102, 241, 0.5);
-
-            /* 阴影 */
             --shadow-sm: 0 2px 8px -2px rgba(0, 0, 0, 0.3);
             --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.4);
             --shadow-lg: 0 24px 48px -12px rgba(0, 0, 0, 0.5);
             --shadow-glow: 0 0 40px -10px var(--primary-glow);
-
-            /* 圆角 */
             --radius-xs: 6px;
             --radius-sm: 10px;
             --radius: 14px;
             --radius-lg: 20px;
             --radius-full: 9999px;
-
-            /* 间距 */
             --space-xs: 8px;
             --space-sm: 12px;
             --space-md: 20px;
             --space-lg: 32px;
             --space-xl: 48px;
-
-            /* 动画曲线 */
             --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
             --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
             --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+            --theme-color: #0f172a;
         }
+
+        /* ========== 设计系统 - 亮色 ========== */
+        :root[data-theme="light"] {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #4f46e5;
+            --primary-glow: rgba(99, 102, 241, 0.2);
+            --bg: #f8fafc;
+            --bg-soft: #f1f5f9;
+            --surface: rgba(255, 255, 255, 0.85);
+            --surface-hover: rgba(255, 255, 255, 0.95);
+            --surface-solid: #ffffff;
+            --text: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --text-dim: #94a3b8;
+            --border: rgba(15, 23, 42, 0.08);
+            --border-hover: rgba(15, 23, 42, 0.15);
+            --border-active: rgba(99, 102, 241, 0.4);
+            --shadow-sm: 0 2px 8px -2px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 24px 48px -12px rgba(0, 0, 0, 0.12);
+            --shadow-glow: 0 0 30px -10px rgba(99, 102, 241, 0.15);
+            --theme-color: #f8fafc;
+        }
+
+        /* 亮色主题特殊覆盖 */
+        :root[data-theme="light"] .brand-text h1 {
+            background: linear-gradient(135deg, #0f172a 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+        :root[data-theme="light"] body::before {
+            background:
+                radial-gradient(ellipse 80% 60% at 15% 10%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse 70% 50% at 85% 90%, rgba(6, 182, 212, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 40% at 50% 50%, rgba(244, 114, 182, 0.04) 0%, transparent 60%);
+        }
+        :root[data-theme="light"] .logo {
+            box-shadow: 0 8px 24px -6px rgba(99, 102, 241, 0.25), inset 0 1px 0 rgba(255,255,255,0.3);
+        }
+        :root[data-theme="light"] .theme-preview-wrap {
+            background: linear-gradient(135deg, #e2e8f0 0%, #f1f5f9 100%);
+        }
+        :root[data-theme="light"] .theme-version {
+            background: rgba(255, 255, 255, 0.85);
+            border-color: rgba(15, 23, 42, 0.08);
+            color: var(--text);
+        }
+        :root[data-theme="light"] .preview-overlay {
+            background: linear-gradient(to top, rgba(248, 250, 252, 0.9) 0%, transparent 60%);
+        }
+        :root[data-theme="light"] .preview-fallback { color: var(--text-dim); }
+        :root[data-theme="light"] .skeleton-preview,
+        :root[data-theme="light"] .skeleton-line {
+            background: linear-gradient(90deg, #e2e8f0 0%, #f1f5f9 50%, #e2e8f0 100%);
+            background-size: 200% 100%;
+        }
+        :root[data-theme="light"] ::-webkit-scrollbar-track { background: var(--bg-soft); }
+        :root[data-theme="light"] ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-color: var(--bg);
+        }
+        :root[data-theme="light"] ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        :root[data-theme="light"] ::selection { background: rgba(99, 102, 241, 0.2); color: var(--text); }
+        :root[data-theme="light"] .btn-primary { box-shadow: 0 4px 12px -2px rgba(99, 102, 241, 0.25); }
+        :root[data-theme="light"] .btn-secondary { background: rgba(15, 23, 42, 0.03); }
+        :root[data-theme="light"] .btn-secondary:hover { background: rgba(15, 23, 42, 0.06); }
+        :root[data-theme="light"] .toast { background: #fff; }
+        :root[data-theme="light"] .back-to-top { background: #fff; }
+        :root[data-theme="light"] .data-source-label::before { box-shadow: 0 0 6px var(--success); }
 
         /* ========== 基础重置 ========== */
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -213,6 +268,40 @@
             font-family: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
         }
         .data-source a:hover { color: var(--text); }
+
+        /* ========== 主题切换 ========== */
+        .theme-toggle {
+            width: 44px;
+            height: 44px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            color: var(--text-secondary);
+            transition: all 0.3s var(--ease-smooth);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 0;
+        }
+        .theme-toggle:hover {
+            border-color: var(--border-hover);
+            background: var(--surface-hover);
+            color: var(--text);
+            transform: translateY(-1px);
+        }
+        .theme-toggle svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.4s var(--ease-spring);
+        }
+        .theme-toggle:hover svg { transform: rotate(30deg); }
+        .icon-sun, .icon-moon { display: none; }
+        :root:not([data-theme="light"]) .icon-moon { display: block; }
+        :root:not([data-theme="light"]) .icon-sun { display: none; }
+        :root[data-theme="light"] .icon-sun { display: block; }
+        :root[data-theme="light"] .icon-moon { display: none; }
 
         /* ========== 统计卡片 ========== */
         .stats {
@@ -707,9 +796,15 @@
                     <p>自动同步上游仓库，国内加速访问</p>
                 </div>
             </div>
-            <div class="data-source">
-                <div class="data-source-label">数据源</div>
-                <a href="https://komari-market.mikus.ink/v1.json" target="_blank" rel="noopener">komari-market.mikus.ink/v1.json</a>
+            <div style="display:flex; gap:var(--space-sm); align-items:center;">
+                <div class="data-source">
+                    <div class="data-source-label">数据源</div>
+                    <a href="https://komari-market.mikus.ink/v1.json" target="_blank" rel="noopener">komari-market.mikus.ink/v1.json</a>
+                </div>
+                <button class="theme-toggle" id="theme-toggle" aria-label="切换主题">
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
             </div>
         </header>
 
@@ -952,8 +1047,39 @@
             });
         }
 
+        // ========== 主题切换 ==========
+        function initTheme() {
+            const toggle = document.getElementById('theme-toggle');
+            const root = document.documentElement;
+
+            // 读取存储的主题偏好，默认跟随系统
+            const saved = localStorage.getItem('theme');
+            if (saved) {
+                root.setAttribute('data-theme', saved);
+            } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+                root.setAttribute('data-theme', 'light');
+            }
+
+            // 更新 meta theme-color
+            function updateMetaColor() {
+                const isLight = root.getAttribute('data-theme') === 'light';
+                document.querySelector('meta[name="theme-color"]').content = isLight ? '#f8fafc' : '#0f172a';
+            }
+            updateMetaColor();
+
+            toggle.addEventListener('click', () => {
+                const isLight = root.getAttribute('data-theme') === 'light';
+                const next = isLight ? 'dark' : 'light';
+                root.setAttribute('data-theme', next === 'dark' ? '' : 'light');
+                if (next === 'dark') root.removeAttribute('data-theme');
+                localStorage.setItem('theme', next);
+                updateMetaColor();
+            });
+        }
+
         // ========== 初始化 ==========
         window.addEventListener('DOMContentLoaded', () => {
+            initTheme();
             loadThemes();
             initBackToTop();
         });
