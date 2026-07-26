@@ -85,12 +85,15 @@ async function downloadThemeResources(v1Data, distDir) {
       );
     }
     
-    // 下载主题包
+    // 下载主题包（跳过，因为文件太大）
+    // 注意：主题包通常较大（几MB到几十MB），下载会导致部署超时
+    // 用户可以直接从 GitHub 下载主题包
+    /*
     if (theme.download) {
       const downloadExt = path.extname(theme.download.split('?')[0]) || '.zip';
       const downloadFilename = `${themeName}-${theme.version}${downloadExt}`;
       const downloadPath = path.join(resourcesDir, downloadFilename);
-      
+
       downloadPromises.push(
         downloadFile(theme.download, downloadPath)
           .then(() => {
@@ -105,6 +108,7 @@ async function downloadThemeResources(v1Data, distDir) {
           })
       );
     }
+    */
   }
   
   await Promise.allSettled(downloadPromises);

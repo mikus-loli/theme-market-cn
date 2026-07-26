@@ -33,12 +33,18 @@ EdgeOne 加速方式：
 
 ```
 1. 同步上游 v1.json → data/v1.json
-2. 下载所有预览图 → dist/resources/*.png
-3. 下载所有主题包 → dist/resources/*.zip
+2. 下载所有预览图 → dist/resources/*.png（约 5-10 MB）
+3. 跳过主题包下载（文件太大，会导致部署超时）
 4. 更新 v1.json 指向本地资源
 5. 生成主题市场页面 → dist/index.html
-6. 部署到 EdgeOne Pages
+6. 部署到 EdgeOne Pages（约 30 秒）
 ```
+
+### 为什么不下载主题包？
+
+- ⚠️ 主题包总大小约 50-100 MB，上传到 CDN 会超时
+- ✅ 预览图总大小约 5-10 MB，上传快速
+- 💡 用户可以直接从 GitHub 下载主题包（原始链接）
 
 ## 配置说明
 
@@ -121,8 +127,8 @@ npx edgeone makers deploy ./dist -n theme-market-cn -t $EDGEONE_API_TOKEN
 
 - 23 个主题
 - 预览图：约 23 张图片，总大小约 5-10 MB
-- 主题包：约 23 个 ZIP 文件，总大小约 50-100 MB
-- 预计构建时间：5-15 分钟（取决于网络速度）
+- 主题包：不下载（文件太大）
+- 预计构建时间：30-60 秒
 
 ## 优势对比
 
@@ -132,11 +138,11 @@ npx edgeone makers deploy ./dist -n theme-market-cn -t $EDGEONE_API_TOKEN
 - ❌ 仍然需要跨域请求
 
 ### 本地缓存方案（当前）
-- ✅ 不依赖 GitHub 实时可用性
-- ✅ 完全从 CDN 获取，速度最快
-- ✅ 支持离线访问
-- ⚠️  构建时间较长（一次性）
-- ⚠️  占用 CDN 存储空间
+- ✅ 不依赖 GitHub 实时可用性（预览图）
+- ✅ 预览图从 CDN 获取，速度极快
+- ✅ 构建时间短（30-60 秒）
+- ✅ 部署快速（约 30 秒）
+- ⚠️ 主题包仍从 GitHub 下载（但这是可选操作）
 
 ## 许可证
 
