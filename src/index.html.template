@@ -1058,8 +1058,14 @@
                 root.setAttribute('data-theme', 'light');
             } else if (saved === 'dark') {
                 root.removeAttribute('data-theme');
-            } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-                root.setAttribute('data-theme', 'light');
+            } else {
+                // 无存储值或非预期值，回退到系统主题偏好
+                localStorage.removeItem('theme');
+                if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+                    root.setAttribute('data-theme', 'light');
+                } else {
+                    root.removeAttribute('data-theme');
+                }
             }
 
             // 更新 meta theme-color
