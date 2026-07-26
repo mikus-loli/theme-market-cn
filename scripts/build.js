@@ -73,18 +73,19 @@ async function downloadThemeResources(v1Data) {
       const ext = path.extname(theme.preview.split('?')[0]) || '.png';
       const filename = safeResourceName(theme, '-preview', ext);
       const destination = path.join(resourcesDir, filename);
+      const cdnUrl = `${BASE_URL}/resources/${filename}`;
       tasks.push(
         downloadFile(theme.preview, destination)
           .then(() => {
             successCount += 1;
+            theme.preview = cdnUrl;
             console.log(`  ✓ 预览图：${themeName}`);
           })
           .catch((error) => {
             failCount += 1;
-            console.error(`  ✗ 预览图失败：${themeName} - ${error.message}`);
+            console.error(`  ✗ 预览图失败：${themeName} - ${error.message}，保留原始 URL`);
           })
       );
-      theme.preview = `${BASE_URL}/resources/${filename}`;
     }
 
     if (theme.download) {
@@ -92,18 +93,19 @@ async function downloadThemeResources(v1Data) {
       const version = theme.version ? `-${theme.version}` : '';
       const filename = safeResourceName(theme, version, ext);
       const destination = path.join(resourcesDir, filename);
+      const cdnUrl = `${BASE_URL}/resources/${filename}`;
       tasks.push(
         downloadFile(theme.download, destination)
           .then(() => {
             successCount += 1;
+            theme.download = cdnUrl;
             console.log(`  ✓ 主题包：${themeName} ${theme.version || ''}`.trim());
           })
           .catch((error) => {
             failCount += 1;
-            console.error(`  ✗ 主题包失败：${themeName} - ${error.message}`);
+            console.error(`  ✗ 主题包失败：${themeName} - ${error.message}，保留原始 URL`);
           })
       );
-      theme.download = `${BASE_URL}/resources/${filename}`;
     }
   }
 
