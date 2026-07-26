@@ -18,8 +18,8 @@
         "en": "WayJam"
       },
       "url": "https://github.com/wayjam/komari-theme-commander",
-      "preview": "https://komari-market.mikus.ink/resources/Commander-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/Commander-1.5.4.zip",
+      "preview": "https://raw.githubusercontent.com/wayjam/komari-theme-commander/refs/heads/main/preview.png",
+      "download": "https://github.com/wayjam/komari-theme-commander/releases/download/v1.5.4/komari-theme-commander%401.5.4.zip",
       "sha256": "67000fc43933547fbb22d8598532b03ccd3b1711e69b9c25536c2672fbeb2537"
     },
     {
@@ -38,8 +38,8 @@
         "en": "Tokinx"
       },
       "url": "https://github.com/Tokinx/komari-theme-emerald",
-      "preview": "https://komari-market.mikus.ink/resources/Emerald-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/Emerald-1.0.4.zip",
+      "preview": "https://raw.githubusercontent.com/Tokinx/komari-theme-emerald/refs/heads/master/docs/preview.png",
+      "download": "https://github.com/Tokinx/komari-theme-emerald/releases/download/v1.0.4/komari-theme-emerald-build-b946e7b.zip",
       "sha256": "b24355dcbdc348d17c9d8ec080d46caa8b880ee468d1760c6f25f5972348d045"
     },
     {
@@ -49,8 +49,8 @@
       "version": "1.0.0",
       "author": "mengying",
       "url": "https://github.com/imengying/Komari-Glass",
-      "preview": "https://komari-market.mikus.ink/resources/Glass-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/Glass-1.0.0.zip",
+      "preview": "https://raw.githubusercontent.com/imengying/Komari-Glass/refs/heads/main/preview.png",
+      "download": "https://github.com/imengying/Komari-Glass/releases/download/v1.0.0/komari-theme-glass-v1.0.0-6fc80d6.zip",
       "sha256": "86dac5e2d477f087e3fbd3b015027e0200a9eff5fa73534b2d9cfcb8390ce1ff"
     },
     {
@@ -60,8 +60,8 @@
       "version": "3.2.0",
       "author": "sanrokamlan",
       "url": "https://github.com/sanrokamlan-prog/komari-theme-Glassmorphism",
-      "preview": "https://komari-market.mikus.ink/resources/Glassmorphism-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/Glassmorphism-3.2.0.zip",
+      "preview": "https://raw.githubusercontent.com/sanrokamlan-prog/komari-theme-Glassmorphism/refs/heads/main/docs/preview.png",
+      "download": "https://github.com/sanrokamlan-prog/komari-theme-Glassmorphism/releases/download/v3.2.0/komari-theme-Glassmorphism-build-ce11932.zip",
       "sha256": "1b4fe7efb90b8014838f273ad5e11baad87bf67084c8c0485affbbcbb3632d78"
     },
     {
@@ -71,8 +71,8 @@
       "version": "1.0.0",
       "author": "cokemine & Claude Sonnet 4",
       "url": "https://github.com/cokemine/ServerStatus-Hotaru",
-      "preview": "https://komari-market.mikus.ink/resources/Hotaru-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/Hotaru-1.0.0.zip",
+      "preview": "https://raw.githubusercontent.com/komari-monitor/public/refs/heads/main/images/hotaru-theme.png",
+      "download": "https://github.com/komari-monitor/komari-web/releases/download/1.0.3/komari-theme-hotaru.zip",
       "sha256": "b5d86521b2614b2ddd85ec049a80f2e9e739a1de77992fd43a15db049facd5d2"
     },
     {
@@ -91,8 +91,8 @@
         "en": "DeerYang"
       },
       "url": "https://github.com/DeerYang/komari-deer",
-      "preview": "https://komari-market.mikus.ink/resources/komari-deer-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/komari-deer-0.1.0.zip",
+      "preview": "https://raw.githubusercontent.com/DeerYang/komari-deer/refs/heads/main/preview.png",
+      "download": "https://github.com/DeerYang/komari-deer/releases/download/v0.1.0/komari-deer-v0.1.0.zip",
       "sha256": "6b77652e3472cc0ac5ede3e10eaa511e3f7e3251181ef3f930ecf06dc0283b6f"
     },
     {
@@ -112,7 +112,7 @@
       },
       "url": "https://github.com/fanchengliu/komari-next-pro",
       "preview": "https://komari-market.mikus.ink/resources/komari-next-pro-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/komari-next-pro-2.0.0.zip",
+      "download": "https://github.com/fanchengliu/komari-next-pro/releases/download/v2.0.0/komari-next-pro-v2.0.0-komari-upload.zip",
       "sha256": "e557a5fe89eab5ec0b553f631511e499a01b611481e13771e8c5d3f8268b50ba"
     },
     {
@@ -122,8 +122,8 @@
       "version": "1.3.2",
       "author": "Yuanhhs",
       "url": "https://github.com/yuanhhs/komari-theme-kumo",
-      "preview": "https://komari-market.mikus.ink/resources/Kumo-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/Kumo-1.3.2.zip",
+      "preview": "https://raw.githubusercontent.com/yuanhhs/komari-theme-kumo/main/.preview/preview.png",
+      "download": "https://github.com/yuanhhs/komari-theme-kumo/releases/download/1.3.2/komari-theme-kumo.zip",
       "sha256": "52915687bfa3c5540a1faae6d37215106772badea042d5b971482227d77e248a"
     },
     {
@@ -133,8 +133,8 @@
       "version": "1.1.1",
       "author": "uvexz",
       "url": "https://github.com/uvexz/komari-theme-light",
-      "preview": "https://komari-market.mikus.ink/resources/light-preview.webp",
-      "download": "https://komari-market.mikus.ink/resources/light-1.1.1.zip",
+      "preview": "https://raw.githubusercontent.com/komari-monitor/komari-document/main/public/assets/theme-light.webp",
+      "download": "https://github.com/uvexz/komari-theme-light/releases/download/v1.1.1/komari-theme-light.zip",
       "sha256": "c4b9bdb72eccca0f101aa05557d81e7bf27b283832f796a51fff3f6134e10d26"
     },
     {
@@ -153,8 +153,8 @@
         "en": "shark & Codex"
       },
       "url": "https://github.com/stqfdyr/komari-theme-Lumina",
-      "preview": "https://komari-market.mikus.ink/resources/Lumina-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/Lumina-1.1.6.zip",
+      "preview": "https://raw.githubusercontent.com/stqfdyr/komari-theme-Lumina/refs/heads/main/preview.png",
+      "download": "https://github.com/stqfdyr/komari-theme-Lumina/releases/download/v1.1.6/Lumina-v1.1.6.zip",
       "sha256": "a8847c40ee59bc3ab8d9f9173f34d4aa8a2a1f51ada8b5075901a677352038a5"
     },
     {
@@ -164,8 +164,8 @@
       "version": "1.2.5",
       "author": "shark&shanyang",
       "url": "https://github.com/shanyang242/Komari-Theme-LuminaPlus",
-      "preview": "https://komari-market.mikus.ink/resources/LuminaPlus-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/LuminaPlus-1.2.5.zip",
+      "preview": "https://raw.githubusercontent.com/shanyang242/Komari-Theme-LuminaPlus/refs/heads/main/docs/images/v1.1.9/overview-large-card-solid.png",
+      "download": "https://github.com/shanyang242/Komari-Theme-LuminaPlus/releases/download/v1.2.5/Komari-Theme-LuminaPlus-v1.2.5.zip",
       "sha256": "b94d77d519fd3a3e85cd810b3c18f37a3a0178681ed2333c6cc60fe531fbc021"
     },
     {
@@ -176,7 +176,7 @@
       "author": "Miku",
       "url": "https://github.com/mikus-loli/komari-mikus",
       "preview": "https://komari-market.mikus.ink/resources/Mikus-preview.webp",
-      "download": "https://komari-market.mikus.ink/resources/Mikus-2.0.3.zip",
+      "download": "https://github.com/mikus-loli/komari-mikus/releases/download/v2.0.4/komari-mikus-v2.0.4.zip",
       "sha256": "deff3b30dc0f88f455dad4d752be80b0bcbb4b060a11ede7361ffaeae4e20b63"
     },
     {
@@ -186,8 +186,8 @@
       "version": "1.1.8",
       "author": "Mochi DEV Team",
       "url": "https://github.com/svnmoe/komari-web-mochi",
-      "preview": "https://komari-market.mikus.ink/resources/Mochi-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/Mochi-1.1.8.zip",
+      "preview": "https://raw.githubusercontent.com/svnmoe/komari-web-mochi/refs/heads/main/preview.png",
+      "download": "https://github.com/svnmoe/komari-web-mochi/releases/download/v1.1.8/komari-theme-v26.06.07-aaba47f.zip",
       "sha256": "60e2f2e42ae8a8921972adeec74c5920e7501d1c6ca3a070149ecf01f7e092b4"
     },
     {
@@ -197,8 +197,8 @@
       "version": "1.1.2",
       "author": "lyimoexiao",
       "url": "https://github.com/lyimoexiao/komari-theme-naive",
-      "preview": "https://komari-market.mikus.ink/resources/Naive-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/Naive-1.1.2.zip",
+      "preview": "https://raw.githubusercontent.com/lyimoexiao/komari-theme-naive/master/docs/preview.png",
+      "download": "https://github.com/lyimoexiao/komari-theme-naive/releases/download/release-v1.1.2/komari-theme-naive-build-ac5b98d.zip",
       "sha256": "0162cbb775e86fd900f49980ccb0f37335015dca27a22709313dbbfb7421a12d"
     },
     {
@@ -217,8 +217,8 @@
         "en": "Miuler"
       },
       "url": "https://github.com/saladinxp/komari-nano-muse",
-      "preview": "https://komari-market.mikus.ink/resources/NanoMuse-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/NanoMuse-1.3.1.zip",
+      "preview": "https://raw.githubusercontent.com/saladinxp/komari-nano-muse/refs/heads/main/preview.png",
+      "download": "https://github.com/saladinxp/komari-nano-muse/releases/download/v1.3.1/komari-nano-muse-v1.3.1.zip",
       "sha256": "05107dcead33196257751894810edf139740e0846034b2087c89b2d859213d2a"
     },
     {
@@ -228,8 +228,8 @@
       "version": "1.4.19",
       "author": "tonyliuzj",
       "url": "https://github.com/tonyliuzj/komari-next",
-      "preview": "https://komari-market.mikus.ink/resources/next-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/next-1.4.19.zip",
+      "preview": "https://github.com/tonyliuzj/komari-next/raw/main/images/dark-theme.png",
+      "download": "https://github.com/tonyliuzj/komari-next/releases/download/1.4.19/dist-release.zip",
       "sha256": "94c9fff9830266013ef2cbd02fe02a4773d3a88606f3b28b627a77b2ce3a11ae"
     },
     {
@@ -248,8 +248,8 @@
         "en": "BITJEBE"
       },
       "url": "https://github.com/BITJEBE/nezha-BITJEBE",
-      "preview": "https://komari-market.mikus.ink/resources/nezha-BITJEBE-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/nezha-BITJEBE-1.1.7.zip",
+      "preview": "https://raw.githubusercontent.com/BITJEBE/nezha-BITJEBE/refs/heads/main/preview.png",
+      "download": "https://github.com/BITJEBE/nezha-BITJEBE/releases/download/v1.1.7/nezha-dash-theme-v1.1.7.zip",
       "sha256": "3cb85f96581c6caf8e85c6bdec0c1f6bd1df37e5a16b8326a39ab6c8b9678936"
     },
     {
@@ -268,8 +268,8 @@
         "en": "Komari Community"
       },
       "url": "https://github.com/zleywb/nezha-minimal",
-      "preview": "https://komari-market.mikus.ink/resources/nezha-minimal-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/nezha-minimal-1.1.20.zip",
+      "preview": "https://raw.githubusercontent.com/zleywb/nezha-minimal/refs/heads/main/preview.png",
+      "download": "https://github.com/zleywb/nezha-minimal/releases/download/V1.1.20/nezha-minimal.zip",
       "sha256": "1d8193d03f67e147abe2a4fc161dacb22499ed8db76e93ec7fdd54f2dabde8c2"
     },
     {
@@ -288,8 +288,8 @@
         "en": "wood"
       },
       "url": "https://github.com/woodchen-ink/komari-paper",
-      "preview": "https://komari-market.mikus.ink/resources/paper-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/paper-26.07.24.zip",
+      "preview": "https://raw.githubusercontent.com/woodchen-ink/komari-paper/refs/heads/main/preview.png",
+      "download": "https://github.com/woodchen-ink/komari-paper/releases/download/v26.07.24/komari-paper-v26.07.24.zip",
       "sha256": "d57137abd39953960385d4a21f3356ae78e2e8b0e2aba48ed1d55c874b88b95f"
     },
     {
@@ -299,8 +299,8 @@
       "version": "1.2.5",
       "author": "Montia & Gemini",
       "url": "https://github.com/Montia37/komari-theme-purcarte",
-      "preview": "https://komari-market.mikus.ink/resources/PurCarte-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/PurCarte-1.2.5.zip",
+      "preview": "https://raw.githubusercontent.com/Montia37/komari-theme-purcarte/refs/heads/main/preview.png",
+      "download": "https://github.com/Montia37/komari-theme-purcarte/releases/download/v1.2.5/komari-theme-purcarte.zip",
       "sha256": "a63d5294d92fb5ed1ff66134ccca5d7b0fb2f76d9ec258ba41e5e46dd33a9c31"
     },
     {
@@ -319,8 +319,8 @@
         "en": "YannickYoung & Codex"
       },
       "url": "https://github.com/YoungYannick/komari-theme-purcarte-plus",
-      "preview": "https://komari-market.mikus.ink/resources/PurCarte-Plus-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/PurCarte-Plus-2026.07.21.1.zip",
+      "preview": "https://raw.githubusercontent.com/YoungYannick/komari-theme-purcarte-plus/master/preview.png",
+      "download": "https://github.com/YoungYannick/komari-theme-purcarte-plus/releases/download/v2026.07.21.1/komari-theme-purcarte-plus.zip",
       "sha256": "efdccc6666b62728add46541e2806a1555a2c535341c4a0123e397162ce06a2a"
     },
     {
@@ -339,8 +339,8 @@
         "en": "Miuler"
       },
       "url": "https://github.com/saladinxp/komari-ran-theme",
-      "preview": "https://komari-market.mikus.ink/resources/ran-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/ran-2.1.2.zip",
+      "preview": "https://raw.githubusercontent.com/saladinxp/komari-ran-theme/refs/heads/main/preview.png",
+      "download": "https://github.com/saladinxp/komari-ran-theme/releases/download/v2.1.2/komari-ran-theme-v2.1.2.zip",
       "sha256": "4ea93085644626a5208fcd66204aab7c9da6f910214881b903825f91cd760791"
     },
     {
@@ -350,8 +350,8 @@
       "version": "1.0.4",
       "author": "Asahina1096",
       "url": "https://github.com/Asahina1096/ServerSentry-Komari",
-      "preview": "https://komari-market.mikus.ink/resources/ServerSentry-preview.webp",
-      "download": "https://komari-market.mikus.ink/resources/ServerSentry-1.0.4.zip",
+      "preview": "https://raw.githubusercontent.com/komari-monitor/public/refs/heads/main/images/ServerSentry-theme.webp",
+      "download": "https://github.com/Asahina1096/ServerSentry-Komari/releases/download/1.0.4/serversentry-theme-1.0.4.zip",
       "sha256": "820d0de25082ae8cf73e60e91c2dac78bbd32da60c3f0c92e88e3cd2b9a8646c"
     }
   ]

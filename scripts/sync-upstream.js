@@ -51,6 +51,18 @@ try {
     { src: 'scripts', dest: 'scripts', isDir: true }
   ];
 
+  // 同步 scripts 目录前，备份本地特有脚本（上游没有的）
+  const LOCAL_ONLY_SCRIPTS = ['build.js', 'sync-upstream.js'];
+  const scriptsDir = path.join(__dirname, '..', 'scripts');
+  const scriptBackups = {};
+  for (const name of LOCAL_ONLY_SCRIPTS) {
+    const filePath = path.join(scriptsDir, name);
+    if (fs.existsSync(filePath)) {
+      scriptBackups[name] = fs.readFileSync(filePath);
+      console.log(`  备份本地脚本：${name}`);
+    }
+  }
+
   filesToSync.forEach(({ src, dest, isDir }) => {
     const srcPath = path.join(TEMP_DIR, src);
     const destPath = path.join(__dirname, '..', dest);
@@ -66,6 +78,13 @@ try {
       console.log(`  ✓ ${src}`);
     }
   });
+
+  // 恢复本地特有脚本
+  for (const [name, content] of Object.entries(scriptBackups)) {
+    const filePath = path.join(scriptsDir, name);
+    fs.writeFileSync(filePath, content);
+    console.log(`  恢复本地脚本：${name}`);
+  }
 
   console.log('✅ 同步完成！');
 
