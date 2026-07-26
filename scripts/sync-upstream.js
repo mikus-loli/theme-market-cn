@@ -4,19 +4,16 @@
  * 上游同步脚本
  * 从 GitHub 上游仓库 (mikus-loli/theme-market) 拉取最新的 v1.json 及相关数据文件，
  * 写入本地 data/ 目录，供后续构建脚本处理。
- *
- * 同步策略：
- *  1. 优先使用 GitHub raw 地址拉取 v1.json
- *  2. 若 GitHub 不可达，自动回退到镜像地址
- *  3. 对比本地与上游内容，若无变化则跳过，避免无意义提交
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { createFromConfig } from './logger.js';
+import { fetchJson, ensureDir } from './utils.js';
 
-const { Logger, createFromConfig } = require('./logger');
-const { fetchJson, ensureDir, sleep } = require('./utils');
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const ROOT_DIR = path.join(__dirname, '..');
 const CONFIG_PATH = path.join(ROOT_DIR, 'config', 'config.json');
 
@@ -31,7 +28,6 @@ async function main() {
 
   logger.info('开始同步上游仓库', { repo: upstream.repo, branch: upstream.branch });
 
-  // 构建候选 URL 列表：官方 raw 优先，镜像兜底
   const v1Path = upstream.v1JsonPath || 'v1.json';
   const candidates = [
     `${upstream.rawBaseUrl}/${upstream.repo}/${upstream.branch}/${v1Path}`,
@@ -39,7 +35,6 @@ async function main() {
   if (upstream.mirrorRawUrl) {
     candidates.push(`${upstream.mirrorRawUrl}/${upstream.repo}/${upstream.branch}/${v1Path}`);
   }
-  // 如果配置了 GitHub Token，使用 API 获取（更稳定，避免限流）
   if (upstream.apiBaseUrl && process.env.GITHUB_TOKEN) {
     candidates.unshift(
       `${upstream.apiBaseUrl}/repos/${upstream.repo}/contents/${v1Path}?ref=${upstream.branch}`
@@ -62,7 +57,6 @@ async function main() {
           : { 'User-Agent': 'theme-market-cn-sync' },
       });
 
-      // API 返回的是 { content: base64, encoding: 'base64' }
       if (result && result.content && result.encoding === 'base64') {
         v1Data = JSON.parse(Buffer.from(result.content, 'base64').toString('utf8'));
       } else {
@@ -94,14 +88,12 @@ async function main() {
     return;
   }
 
-  // 写入 v1.json
   fs.writeFileSync(localV1Path, remoteContent, 'utf8');
   logger.info('已更新 data/v1.json', {
     themes: (v1Data.themes || []).length,
     source: usedUrl,
   });
 
-  // 记录同步元信息（供构建脚本和 CI 使用）
   const meta = {
     syncedAt: new Date().toISOString(),
     source: usedUrl,

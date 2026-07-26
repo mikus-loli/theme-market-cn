@@ -5,10 +5,10 @@
  * 提供带重试的下载、并发控制、文件操作等通用能力
  */
 
-const fs = require('fs');
-const path = require('path');
-const https = require('https');
-const http = require('http');
+import fs from 'node:fs';
+import path from 'node:path';
+import https from 'node:https';
+import http from 'node:http';
 
 const MAX_REDIRECTS = 5;
 
@@ -18,9 +18,8 @@ const MAX_REDIRECTS = 5;
  * @param {string} destPath 目标路径
  * @param {object} options { timeoutMs, retries, retryDelayMs, logger }
  */
-function downloadFile(url, destPath, options = {}) {
+export function downloadFile(url, destPath, options = {}) {
   const { timeoutMs = 60000, retries = 3, retryDelayMs = 2000, logger } = options;
-  // 整体硬超时：所有重试 + 重定向总耗时上限，防止挂起
   const overallDeadline = timeoutMs * (retries + 1) * (MAX_REDIRECTS + 1) + retryDelayMs * retries;
 
   return new Promise((resolve, reject) => {
@@ -38,7 +37,6 @@ function downloadFile(url, destPath, options = {}) {
       finish(reject, new Error(`整体超时(>${overallDeadline}ms): ${url}`));
     }, overallDeadline);
 
-    // currentUrl 在重定向链中逐步更新
     const attempt = (currentUrl, left, err, redirectsLeft) => {
       if (left < 0) {
         finish(reject, err || new Error(`下载失败: ${url}`));
@@ -46,7 +44,6 @@ function downloadFile(url, destPath, options = {}) {
       }
       const protocol = currentUrl.startsWith('https') ? https : http;
       const req = protocol.get(currentUrl, { timeout: timeoutMs }, (res) => {
-        // 处理重定向：使用 res.headers.location 作为新 URL
         if ([301, 302, 303, 307, 308].includes(res.statusCode) && res.headers.location) {
           res.resume();
           if (redirectsLeft <= 0) {
@@ -57,7 +54,6 @@ function downloadFile(url, destPath, options = {}) {
           }
           const nextUrl = new URL(res.headers.location, currentUrl).toString();
           if (logger) logger.debug(`重定向 ${res.statusCode}: ${currentUrl} -> ${nextUrl}`);
-          // 重定向不消耗重试次数，仅减少 redirectsLeft
           attempt(nextUrl, left, null, redirectsLeft - 1);
           return;
         }
@@ -94,7 +90,7 @@ function downloadFile(url, destPath, options = {}) {
 /**
  * 简单的 JSON 请求（正确跟随重定向）
  */
-function fetchJson(url, options = {}) {
+export function fetchJson(url, options = {}) {
   const { timeoutMs = 30000, retries = 3, retryDelayMs = 2000, headers = {} } = options;
   const overallDeadline = timeoutMs * (retries + 1) * (MAX_REDIRECTS + 1) + retryDelayMs * retries;
 
@@ -162,11 +158,8 @@ function fetchJson(url, options = {}) {
 
 /**
  * 并发执行任务（限制并发数）
- * @param {Array} items 待处理项
- * @param {number} concurrency 并发数
- * @param {Function} worker (item, index) => Promise
  */
-async function mapLimit(items, concurrency, worker) {
+export async function mapLimit(items, concurrency, worker) {
   const results = new Array(items.length);
   let index = 0;
   const run = async () => {
@@ -185,27 +178,22 @@ async function mapLimit(items, concurrency, worker) {
 }
 
 /** 递归创建目录 */
-function ensureDir(dirPath) {
+export function ensureDir(dirPath) {
   if (!fs.existsSync(dirPath)) {
     fs.mkdirSync(dirPath, { recursive: true });
   }
 }
 
 /** 递归清空目录（保留目录本身） */
-function cleanDir(dirPath) {
+export function cleanDir(dirPath) {
   if (fs.existsSync(dirPath)) {
     fs.rmSync(dirPath, { recursive: true, force: true });
   }
   fs.mkdirSync(dirPath, { recursive: true });
 }
 
-/**
- * 根据 theme 信息生成安全的资源文件名
- * @param {object} theme 主题对象
- * @param {string} suffix 后缀，如 -preview
- * @param {string} ext 扩展名，如 .png
- */
-function safeResourceName(theme, suffix, ext) {
+/** 根据 theme 信息生成安全的资源文件名 */
+export function safeResourceName(theme, suffix, ext) {
   const rawName = theme.short || theme.name?.en || theme.name?.['zh-CN'] || 'theme';
   const name = String(rawName)
     .replace(/[^a-zA-Z0-9._-]+/g, '-')
@@ -213,12 +201,11 @@ function safeResourceName(theme, suffix, ext) {
   return `${name}${suffix}${ext}`;
 }
 
-/** 从 URL 中提取扩展名（带点号），默认返回 .png 或 .zip */
-function extFromUrl(url, fallback = '.png') {
+/** 从 URL 中提取扩展名（带点号） */
+export function extFromUrl(url, fallback = '.png') {
   try {
     const u = new URL(url);
-    const pathname = u.pathname;
-    const ext = path.extname(pathname.split('?')[0]);
+    const ext = path.extname(u.pathname.split('?')[0]);
     return ext || fallback;
   } catch {
     return fallback;
@@ -226,17 +213,6 @@ function extFromUrl(url, fallback = '.png') {
 }
 
 /** 简单延迟 */
-function sleep(ms) {
+export function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
-
-module.exports = {
-  downloadFile,
-  fetchJson,
-  mapLimit,
-  ensureDir,
-  cleanDir,
-  safeResourceName,
-  extFromUrl,
-  sleep,
-};

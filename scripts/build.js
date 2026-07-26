@@ -7,26 +7,28 @@
  *  1. 读取 data/v1.json，识别每个主题的 preview / download 资源链接
  *  2. 下载这些资源到 dist/resources/ 目录（即 EdgeOne Pages 部署目录）
  *  3. 仅在 v1.json 中将原始 GitHub 链接替换为 EdgeOne 加速链接
- *     （其他文件结构保持不变）
- *  4. 复制前端静态资源到 dist/
+ *  4. 运行 Vite 构建前端应用
  *  5. 全程通过 logger 记录，构建结束后显式销毁 HTTP agent 并退出进程
  */
 
-const fs = require('fs');
-const path = require('path');
-const https = require('https');
-const http = require('http');
-
-const { Logger, createFromConfig } = require('./logger');
-const {
+import fs from 'node:fs';
+import path from 'node:path';
+import https from 'node:https';
+import http from 'node:http';
+import { execSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+import { createFromConfig } from './logger.js';
+import {
   downloadFile,
   mapLimit,
   ensureDir,
   cleanDir,
   safeResourceName,
   extFromUrl,
-} = require('./utils');
+} from './utils.js';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const ROOT_DIR = path.join(__dirname, '..');
 const CONFIG_PATH = path.join(ROOT_DIR, 'config', 'config.json');
 
@@ -83,14 +85,7 @@ async function main() {
       const filename = safeResourceName(theme, '-preview', ext);
       const destPath = path.join(RESOURCES_DIR, filename);
       const cdnUrl = `${RESOURCE_BASE}${filename}`;
-      tasks.push({
-        type: 'preview',
-        theme,
-        themeName,
-        url: theme.preview,
-        destPath,
-        cdnUrl,
-      });
+      tasks.push({ type: 'preview', theme, themeName, url: theme.preview, destPath, cdnUrl });
     }
 
     if (theme.download) {
@@ -99,14 +94,7 @@ async function main() {
       const filename = safeResourceName(theme, version, ext);
       const destPath = path.join(RESOURCES_DIR, filename);
       const cdnUrl = `${RESOURCE_BASE}${filename}`;
-      tasks.push({
-        type: 'download',
-        theme,
-        themeName,
-        url: theme.download,
-        destPath,
-        cdnUrl,
-      });
+      tasks.push({ type: 'download', theme, themeName, url: theme.download, destPath, cdnUrl });
     }
   }
 
@@ -123,7 +111,6 @@ async function main() {
   const results = await mapLimit(tasks, buildCfg.concurrency, async (task) => {
     try {
       await downloadFile(task.url, task.destPath, downloadOptions);
-      // 仅替换 v1.json 中对应字段（保留原始对象其他字段）
       if (task.type === 'preview') {
         task.theme.preview = task.cdnUrl;
       } else {
@@ -165,7 +152,6 @@ async function main() {
   // 9. 运行 Vite 构建（输出到 dist/，emptyOutDir: false 不会清除已下载的资源）
   if (fs.existsSync(SRC_DIR)) {
     logger.info('运行 Vite 构建前端应用...');
-    const { execSync } = require('child_process');
     try {
       execSync('npx vite build', {
         cwd: ROOT_DIR,

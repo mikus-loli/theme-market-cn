@@ -5,8 +5,8 @@
  * 支持控制台输出 + 文件滚动存储，记录资源同步、更新和替换全过程
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'node:fs';
+import path from 'node:path';
 
 const LEVELS = { debug: 10, info: 20, warn: 30, error: 40 };
 const LEVEL_NAMES = { 10: 'DEBUG', 20: 'INFO', 30: 'WARN', 40: 'ERROR' };
@@ -68,7 +68,6 @@ class Logger {
       try {
         fs.appendFileSync(this._logFile(), line + '\n', 'utf8');
       } catch (e) {
-        // 文件写入失败时仅输出到控制台
         if (this.console) {
           process.stderr.write(`[LOGGER ERROR] 无法写入日志文件: ${e.message}\n`);
         }
@@ -113,4 +112,4 @@ function createFromConfig(configPath) {
   });
 }
 
-module.exports = { Logger, createFromConfig };
+export { Logger, createFromConfig };
