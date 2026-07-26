@@ -35,9 +35,29 @@ EdgeOne 加速方式：
 1. 同步上游 v1.json → data/v1.json
 2. 下载所有预览图 → dist/resources/*.png（约 5-10 MB）
 3. 下载所有主题包 → dist/resources/*.zip（约 50-100 MB）
-4. 更新 v1.json 指向本地资源
+4. 替换 v1.json 中的所有链接为 CDN URL
 5. 生成主题市场页面 → dist/index.html
 6. 部署到 EdgeOne Pages（约 1-2 分钟）
+```
+
+### 资源链接替换
+
+构建时会将所有 GitHub 链接替换为 EdgeOne CDN URL：
+
+**替换前**：
+```json
+{
+  "preview": "https://raw.githubusercontent.com/user/repo/main/preview.png",
+  "download": "https://github.com/user/repo/releases/download/v1.0/theme.zip"
+}
+```
+
+**替换后**：
+```json
+{
+  "preview": "https://theme-market-cn.edgeonepages.com/resources/ThemeName-preview.png",
+  "download": "https://theme-market-cn.edgeonepages.com/resources/ThemeName-1.0.zip"
+}
 ```
 
 ## 配置说明
@@ -48,6 +68,7 @@ EdgeOne 加速方式：
 
 - `EDGEONE_API_TOKEN`: EdgeOne API Token（获取方式见下方）
 - `UPSTREAM_REPO`: 上游仓库地址（例如：`https://github.com/komari-monitor/theme-market`）
+- `BASE_URL`: EdgeOne Pages 部署域名（可选，默认：`https://theme-market-cn.edgeonepages.com`）
 
 #### 获取 EdgeOne API Token
 

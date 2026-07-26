@@ -73,13 +73,14 @@ async function downloadThemeResources(v1Data, distDir) {
       downloadPromises.push(
         downloadFile(theme.preview, previewPath)
           .then(() => {
-            theme.preview_local = `/resources/${previewFilename}`;
+            // 直接替换原始字段为完整 URL
+            const baseUrl = process.env.BASE_URL || 'https://theme-market-cn.edgeonepages.com';
+            theme.preview = `${baseUrl}/resources/${previewFilename}`;
             successCount++;
             console.log(`  ✓ 预览图：${themeName}`);
           })
           .catch(err => {
             console.error(`  ✗ 预览图失败：${themeName} - ${err.message}`);
-            theme.preview_local = theme.preview;
             failCount++;
           })
       );
@@ -94,13 +95,14 @@ async function downloadThemeResources(v1Data, distDir) {
       downloadPromises.push(
         downloadFile(theme.download, downloadPath)
           .then(() => {
-            theme.download_local = `/resources/${downloadFilename}`;
+            // 直接替换原始字段为完整 URL
+            const baseUrl = process.env.BASE_URL || 'https://theme-market-cn.edgeonepages.com';
+            theme.download = `${baseUrl}/resources/${downloadFilename}`;
             successCount++;
             console.log(`  ✓ 主题包：${themeName} v${theme.version}`);
           })
           .catch(err => {
             console.error(`  ✗ 主题包失败：${themeName} - ${err.message}`);
-            theme.download_local = theme.download;
             failCount++;
           })
       );
@@ -260,8 +262,8 @@ function buildIndexHtml(v1Data) {
                     const name = theme.name['zh-CN'] || theme.name;
                     const description = theme.description['zh-CN'] || theme.description || '暂无描述';
                     const author = theme.author['zh-CN'] || theme.author;
-                    const previewUrl = theme.preview_local || theme.preview;
-                    const downloadUrl = theme.download_local || theme.download;
+                    const previewUrl = theme.preview;  // 已替换为完整 CDN URL
+                    const downloadUrl = theme.download; // 已替换为完整 CDN URL
                     
                     const themeCard = document.createElement('div');
                     themeCard.className = 'theme-item';
@@ -313,17 +315,21 @@ async function build() {
       console.log('⚠️  v1.json 不存在');
       return;
     }
-    
+
     const v1Data = JSON.parse(fs.readFileSync(v1JsonPath, 'utf8'));
     console.log(`📊 加载 ${v1Data.themes.length} 个主题`);
+
+    // 显示 BASE_URL 配置
+    const baseUrl = process.env.BASE_URL || 'https://theme-market-cn.edgeonepages.com';
+    console.log(`🌐 基础 URL: ${baseUrl}`);
     
     // 下载资源
     await downloadThemeResources(v1Data, distDir);
     
-    // 更新 v1.json，使用本地链接
+    // 更新 v1.json（所有链接已替换为 CDN URL）
     const updatedV1Path = path.join(distDir, 'v1.json');
     fs.writeFileSync(updatedV1Path, JSON.stringify(v1Data, null, 2), 'utf8');
-    console.log('✓ 更新了 v1.json 的资源链接');
+    console.log('✓ 更新了 v1.json，所有资源链接已替换为 CDN URL');
     
     // 构建 HTML 页面
     buildIndexHtml(v1Data);
