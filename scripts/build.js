@@ -73,9 +73,6 @@ async function downloadThemeResources(v1Data, distDir) {
       downloadPromises.push(
         downloadFile(theme.preview, previewPath)
           .then(() => {
-            // 直接替换原始字段为完整 URL
-            const baseUrl = process.env.BASE_URL || 'https://komari-market.mikus.ink';
-            theme.preview = `${baseUrl}/resources/${previewFilename}`;
             successCount++;
             console.log(`  ✓ 预览图：${themeName}`);
           })
@@ -84,6 +81,10 @@ async function downloadThemeResources(v1Data, distDir) {
             failCount++;
           })
       );
+
+      // 总是替换链接为 CDN URL（不论下载是否成功）
+      const baseUrl = process.env.BASE_URL || 'https://komari-market.mikus.ink';
+      theme.preview = `${baseUrl}/resources/${previewFilename}`;
     }
     
     // 下载主题包
@@ -95,9 +96,6 @@ async function downloadThemeResources(v1Data, distDir) {
       downloadPromises.push(
         downloadFile(theme.download, downloadPath)
           .then(() => {
-            // 直接替换原始字段为完整 URL
-            const baseUrl = process.env.BASE_URL || 'https://komari-market.mikus.ink';
-            theme.download = `${baseUrl}/resources/${downloadFilename}`;
             successCount++;
             console.log(`  ✓ 主题包：${themeName} v${theme.version}`);
           })
@@ -106,6 +104,10 @@ async function downloadThemeResources(v1Data, distDir) {
             failCount++;
           })
       );
+
+      // 总是替换链接为 CDN URL（不论下载是否成功）
+      const baseUrl = process.env.BASE_URL || 'https://komari-market.mikus.ink';
+      theme.download = `${baseUrl}/resources/${downloadFilename}`;
     }
   }
   
