@@ -4,15 +4,5 @@
   "build": {
     "command": "npm run build",
     "output": "./dist"
-  },
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
-  ]
+  }
 }
