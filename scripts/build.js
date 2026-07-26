@@ -122,7 +122,7 @@ function buildIndexHtml(v1Data) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Theme Market CN - 主题市场</title>
+    <title>Theme Market CN - Komari 主题市场</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -132,120 +132,235 @@ function buildIndexHtml(v1Data) {
             padding: 40px 20px;
         }
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             background: white;
             border-radius: 16px;
             padding: 40px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
         }
-        h1 {
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        .header-left h1 {
             color: #333;
             margin-bottom: 10px;
             font-size: 2.5em;
         }
         .subtitle {
             color: #666;
-            margin-bottom: 30px;
             font-size: 1.1em;
         }
-        .info {
-            background: #f8f9fa;
+        .data-source {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 12px;
+            text-align: right;
+        }
+        .data-source h3 {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+        .data-source a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 600;
+            word-break: break-all;
+        }
+        .data-source a:hover {
+            text-decoration: underline;
+        }
+        .stats {
+            display: flex;
+            gap: 20px;
             margin-bottom: 30px;
+            flex-wrap: wrap;
         }
-        .info h2 {
-            color: #495057;
-            margin-bottom: 10px;
+        .stat-card {
+            flex: 1;
+            min-width: 150px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
         }
-        .info p {
-            color: #6c757d;
-            line-height: 1.6;
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
         }
         .themes {
-            margin-top: 20px;
+            margin-top: 30px;
         }
         .themes h2 {
             color: #333;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            font-size: 1.5em;
         }
         .theme-list {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
         }
         .theme-item {
             background: white;
             border: 2px solid #e9ecef;
-            border-radius: 8px;
-            padding: 15px;
+            border-radius: 12px;
+            padding: 20px;
             transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
         }
         .theme-item:hover {
             border-color: #667eea;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.25);
+        }
+        .theme-preview {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background: #f8f9fa;
         }
         .theme-name {
             font-weight: 600;
             color: #333;
-            font-size: 1.1em;
+            font-size: 1.2em;
+            margin-bottom: 8px;
         }
         .theme-description {
             color: #6c757d;
-            margin-top: 8px;
-            line-height: 1.5;
-            font-size: 0.9em;
+            line-height: 1.6;
+            font-size: 0.95em;
+            flex: 1;
         }
         .theme-meta {
-            margin-top: 8px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #e9ecef;
             font-size: 0.85em;
             color: #868e96;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .theme-meta span {
-            margin-right: 15px;
-        }
-        .theme-link {
-            display: inline-block;
+        .theme-actions {
             margin-top: 12px;
-            color: #667eea;
+            display: flex;
+            gap: 10px;
+        }
+        .theme-btn {
+            flex: 1;
+            padding: 10px 15px;
+            border-radius: 8px;
             text-decoration: none;
             font-size: 0.9em;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
         }
-        .theme-link:hover {
-            text-decoration: underline;
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
         }
         .footer {
             margin-top: 40px;
             padding-top: 20px;
-            border-top: 1px solid #e9ecef;
+            border-top: 2px solid #e9ecef;
             text-align: center;
             color: #6c757d;
             font-size: 0.9em;
+        }
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+            }
+            .data-source {
+                margin-top: 20px;
+                text-align: left;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎨 Theme Market CN</h1>
-        <p class="subtitle">自动同步上游主题仓库，国内加速访问</p>
+        <div class="header">
+            <div class="header-left">
+                <h1>🎨 Komari 主题市场</h1>
+                <p class="subtitle">自动同步上游仓库，国内加速访问</p>
+            </div>
+            <div class="data-source">
+                <h3>📍 数据源</h3>
+                <a href="https://komari-market.mikus.ink/v1.json" target="_blank">https://komari-market.mikus.ink/v1.json</a>
+            </div>
+        </div>
 
-        <div class="info">
-            <h2>📍 项目说明</h2>
-            <p>本项目自动同步上游主题仓库 <a href="https://github.com/komari-monitor/theme-market" target="_blank">komari-monitor/theme-market</a>，通过 EdgeOne Pages 托管，为国内用户提供快速访问。</p>
-            <p style="margin-top: 10px;">同步时间：${new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })}</p>
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="theme-count">-</div>
+                <div class="stat-label">可用主题</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="sync-time">-</div>
+                <div class="stat-label">最后同步</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">✓</div>
+                <div class="stat-label">国内加速</div>
+            </div>
         </div>
 
         <div class="themes">
             <h2>📦 主题列表</h2>
             <div id="theme-list" class="theme-list">
-                <p>加载中...</p>
+                <div class="loading">加载中...</div>
             </div>
         </div>
 
         <div class="footer">
-            <p>Powered by <a href="https://cloud.tencent.com/product/eo" target="_blank">EdgeOne Pages</a> | 自动同步上游仓库 | 资源已缓存到国内 CDN</p>
+            <p>数据来源：<a href="https://github.com/komari-monitor/theme-market" target="_blank">komari-monitor/theme-market</a></p>
+            <p style="margin-top: 8px;">托管于 <a href="https://cloud.tencent.com/product/eo" target="_blank">EdgeOne Pages</a> | 所有资源通过 CDN 加速</p>
         </div>
     </div>
 
