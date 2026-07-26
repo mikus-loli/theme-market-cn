@@ -53,7 +53,7 @@ function formatRelativeTime(dateString) {
   return date.toLocaleDateString('zh-CN');
 }
 
-function debounce(fn, delay = 160) {
+function debounce(fn, delay = 200) {
   let timer;
   return (...args) => {
     clearTimeout(timer);
@@ -61,6 +61,7 @@ function debounce(fn, delay = 160) {
   };
 }
 
+/* --- Toast Notification (macOS style) --- */
 function toast(message, type = 'success') {
   const node = document.createElement('div');
   node.className = `toast ${type}`;
@@ -69,9 +70,10 @@ function toast(message, type = 'success') {
   setTimeout(() => {
     node.classList.add('is-leaving');
     node.addEventListener('animationend', () => node.remove(), { once: true });
-  }, 2400);
+  }, 2800);
 }
 
+/* --- Skeleton Loading --- */
 function renderSkeleton(count = 6) {
   elements.themeList.innerHTML = Array.from({ length: count }, () => `
     <article class="skeleton-card" aria-hidden="true">
@@ -85,6 +87,7 @@ function renderSkeleton(count = 6) {
   `).join('');
 }
 
+/* --- State Messages --- */
 function renderState(message, icon = '') {
   elements.themeList.innerHTML = `
     <div class="state">
@@ -94,6 +97,7 @@ function renderState(message, icon = '') {
   `;
 }
 
+/* --- Theme Card Creation --- */
 function createThemeCard(theme, index) {
   const name = pickLocale(theme.name, '未命名主题');
   const description = pickLocale(theme.description, '暂无描述');
@@ -106,7 +110,7 @@ function createThemeCard(theme, index) {
 
   const card = document.createElement('article');
   card.className = 'theme-card';
-  card.style.animationDelay = `${Math.min(index * 35, 350)}ms`;
+  card.style.animationDelay = `${Math.min(index * 40, 400)}ms`;
   card.innerHTML = `
     <div class="preview-wrap">
       <img src="${escapeHtml(preview)}" alt="${escapeHtml(name)}" loading="lazy">
@@ -140,6 +144,7 @@ function createThemeCard(theme, index) {
   return card;
 }
 
+/* --- Filter & Render --- */
 function filterThemes() {
   const query = state.query.trim().toLowerCase();
   if (!query) return state.themes;
@@ -165,6 +170,7 @@ function renderThemes() {
   elements.themeList.replaceChildren(...themes.map(createThemeCard));
 }
 
+/* --- Load Themes --- */
 async function loadThemes() {
   renderSkeleton();
   try {
@@ -185,13 +191,14 @@ async function loadThemes() {
   }
 }
 
+/* --- Theme Switching (macOS light/dark) --- */
 function applyTheme(theme) {
-  if (theme === 'light') {
-    elements.root.setAttribute('data-theme', 'light');
-    elements.metaThemeColor.content = '#f8fafc';
+  if (theme === 'dark') {
+    elements.root.setAttribute('data-theme', 'dark');
+    elements.metaThemeColor.content = '#1c1c1e';
   } else {
     elements.root.removeAttribute('data-theme');
-    elements.metaThemeColor.content = '#0f172a';
+    elements.metaThemeColor.content = '#f5f5f7';
   }
 }
 
@@ -201,16 +208,17 @@ function initTheme() {
     applyTheme(saved);
   } else {
     localStorage.removeItem('theme');
-    applyTheme(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   }
 
   elements.themeToggle.addEventListener('click', () => {
-    const next = elements.root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    const next = elements.root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     localStorage.setItem('theme', next);
     applyTheme(next);
   });
 }
 
+/* --- Copy Source URL --- */
 async function copySourceUrl() {
   const value = elements.sourceUrl.textContent.trim() || SOURCE_URL;
   try {
@@ -231,22 +239,36 @@ async function copySourceUrl() {
   setTimeout(() => {
     elements.copyButton.classList.remove('is-copied');
     elements.copyText.textContent = '复制';
-  }, 1800);
+  }, 2000);
 }
 
+/* --- Initialize Events --- */
 function initEvents() {
   elements.sourceUrl.textContent = SOURCE_URL;
   elements.copyButton.addEventListener('click', copySourceUrl);
+
   elements.searchInput.addEventListener('input', debounce((event) => {
     state.query = event.target.value;
     renderThemes();
   }));
+
+  let scrollTicking = false;
   window.addEventListener('scroll', () => {
-    elements.backToTop.classList.toggle('is-visible', window.scrollY > 420);
+    if (!scrollTicking) {
+      requestAnimationFrame(() => {
+        elements.backToTop.classList.toggle('is-visible', window.scrollY > 360);
+        scrollTicking = false;
+      });
+      scrollTicking = true;
+    }
   }, { passive: true });
-  elements.backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  elements.backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 }
 
+/* --- Boot --- */
 window.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initEvents();
