@@ -157,25 +157,81 @@ const indexHtml = `<!DOCTYPE html>
 
         <div class="themes">
             <h2>📦 主题列表</h2>
-            <div class="theme-list">
-                ${v1Data ? v1Data.themes.map(theme => `
-                <div class="theme-item">
-                    <div class="theme-name">${theme.name['zh-CN'] || theme.name}</div>
-                    <div class="theme-description">${theme.description['zh-CN'] || theme.description || '暂无描述'}</div>
-                    <div class="theme-meta">
-                        <span>v${theme.version}</span>
-                        <span>by ${theme.author['zh-CN'] || theme.author}</span>
-                    </div>
-                    <a href="${theme.url}" target="_blank" class="theme-link">查看详情 →</a>
-                </div>
-                `).join('') : '<p>暂无主题</p>'}
+            <div id="theme-list" class="theme-list">
+                <p>加载中...</p>
             </div>
         </div>
 
         <div class="footer">
-            <p>Powered by <a href="https://cloud.tencent.com/product/eo" target="_blank">EdgeOne Pages</a> | 自动同步上游仓库</p>
+            <p>Powered by <a href="https://cloud.tencent.com/product/eo" target="_blank">EdgeOne Pages</a> | 自动同步上游仓库 | GitHub 资源通过边缘函数加速</p>
         </div>
     </div>
+
+    <script>
+        // GitHub 链接代理函数
+        function proxyGitHubUrl(url) {
+            if (!url) return url;
+            
+            // 检查是否为 GitHub 链接
+            const githubPatterns = [
+                /^https?:\\/\\/github\\.com\\//,
+                /^https?:\\/\\/raw\\.githubusercontent\\.com\\//,
+                /^https?:\\/\\/github\\.githubassets\\.com\\//,
+                /^https?:\\/\\/objects\\.githubusercontent\\.com\\//
+            ];
+            
+            const isGitHubUrl = githubPatterns.some(pattern => pattern.test(url));
+            
+            if (isGitHubUrl) {
+                // 使用边缘函数代理
+                return '/api/proxy?url=' + encodeURIComponent(url);
+            }
+            
+            return url;
+        }
+
+        // 加载主题数据
+        async function loadThemes() {
+            try {
+                const response = await fetch('./v1.json');
+                const data = await response.json();
+                
+                const themeList = document.getElementById('theme-list');
+                themeList.innerHTML = '';
+                
+                data.themes.forEach(theme => {
+                    const name = theme.name['zh-CN'] || theme.name;
+                    const description = theme.description['zh-CN'] || theme.description || '暂无描述';
+                    const author = theme.author['zh-CN'] || theme.author;
+                    
+                    // 代理预览图链接
+                    const previewUrl = proxyGitHubUrl(theme.preview);
+                    
+                    const themeCard = document.createElement('div');
+                    themeCard.className = 'theme-item';
+                    themeCard.innerHTML = \`
+                        <div class="theme-name">\${name}</div>
+                        <div class="theme-description">\${description}</div>
+                        <div class="theme-meta">
+                            <span>v\${theme.version}</span>
+                            <span>by \${author}</span>
+                        </div>
+                        <a href="\${theme.url}" target="_blank" class="theme-link">查看详情 →</a>
+                    \`;
+                    
+                    themeList.appendChild(themeCard);
+                });
+                
+                console.log(\`✅ 加载了 \${data.themes.length} 个主题\`);
+            } catch (error) {
+                console.error('加载主题失败:', error);
+                document.getElementById('theme-list').innerHTML = '<p>加载失败，请刷新页面重试</p>';
+            }
+        }
+
+        // 页面加载完成后执行
+        window.addEventListener('DOMContentLoaded', loadThemes);
+    </script>
 </body>
 </html>`;
 

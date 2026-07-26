@@ -1,13 +1,34 @@
 # Theme Market CN
 
-自动同步上游仓库主题源，并通过 EdgeOne Pages 托管。
+自动同步上游仓库主题源，并通过 EdgeOne Pages 托管。**所有 GitHub 资源通过边缘函数加速，国内访问超快！**
 
 ## 功能特性
 
 - 🔄 自动监测上游仓库更新
 - 📦 自动同步主题源文件
 - 🚀 通过 EdgeOne Pages 托管，国内访问速度快
-- ⚡ GitHub Actions 自动化部署
+- ⚡ **GitHub 资源通过边缘函数加速**（预览图、下载链接）
+- 🎯 零成本方案，免费额度足够个人使用
+- 🤖 GitHub Actions 自动化部署
+
+## 加速原理
+
+```
+传统访问方式：
+用户 → GitHub（国外）→ 预览图/下载文件（慢）
+
+EdgeOne 加速方式：
+用户 → EdgeOne CDN（国内）→ v1.json（快）
+     → EdgeOne 边缘函数（国内）→ GitHub 资源（快）
+```
+
+### 加速范围
+
+- ✅ v1.json 主题目录文件
+- ✅ 预览图（preview）
+- ✅ 主题下载链接（download）
+- ✅ GitHub API 请求
+- ✅ 其他 GitHub 资源
 
 ## 配置说明
 
@@ -49,11 +70,41 @@ npm install
 npm run dev
 
 # 手动同步上游
-node scripts/sync-upstream.js
+npm run sync
+
+# 构建项目
+npm run build
 
 # 部署到 EdgeOne
 npx edgeone makers deploy ./dist -n theme-market-cn -t $EDGEONE_API_TOKEN
 ```
+
+## 边缘函数 API
+
+### GitHub 资源代理
+
+**端点**: `/api/proxy`
+
+**方法**: `GET`
+
+**参数**:
+- `url` (必需): 要代理的 GitHub URL
+
+**示例**:
+```javascript
+// 原始链接
+const originalUrl = 'https://raw.githubusercontent.com/user/repo/main/image.png';
+
+// 通过边缘函数代理
+const proxiedUrl = '/api/proxy?url=' + encodeURIComponent(originalUrl);
+```
+
+**支持的 GitHub 域名**:
+- github.com
+- raw.githubusercontent.com
+- github.githubassets.com
+- objects.githubusercontent.com
+- opengraph.githubassets.com
 
 ## 项目结构
 
@@ -62,13 +113,38 @@ npx edgeone makers deploy ./dist -n theme-market-cn -t $EDGEONE_API_TOKEN
 ├── .github/
 │   └── workflows/
 │       └── sync-and-deploy.yml    # GitHub Actions 工作流
+├── functions/
+│   └── api/
+│       └── proxy.js               # GitHub 资源代理边缘函数
 ├── scripts/
-│   └── sync-upstream.js           # 同步脚本
-├── themes/                        # 主题源文件目录
+│   ├── sync-upstream.js           # 同步脚本
+│   └── build.js                   # 构建脚本
+├── data/                          # 主题源文件目录
+│   └── v1.json                    # 主题目录
+├── dist/                          # 构建输出
+│   ├── index.html                 # 主题市场首页
+│   └── v1.json                    # 主题目录
 ├── package.json                   # 项目配置
 ├── edgeone.config.json            # EdgeOne 配置
 └── README.md                      # 本文件
 ```
+
+## 性能优化
+
+### 预览图加载
+- 通过边缘函数从 GitHub 代理到国内
+- 自动添加 CORS 头，支持跨域
+- 支持流式传输，节省内存
+
+### 主题下载
+- Release 附件通过边缘函数加速
+- 支持大文件流式转发
+- 自动处理重定向
+
+### 安全性
+- 仅允许代理 GitHub 官方域名
+- 自动删除可能冲突的安全头
+- 支持跨域访问控制
 
 ## 许可证
 

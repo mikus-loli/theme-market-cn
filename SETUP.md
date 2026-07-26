@@ -221,6 +221,35 @@ npm run deploy
 edgeone makers logs theme-market-cn
 ```
 
+## 九、边缘函数使用说明
+
+### GitHub 资源代理
+
+项目包含一个边缘函数，用于代理 GitHub 资源：
+
+**路径**: `/api/proxy`
+
+**功能**: 将 GitHub 资源通过 EdgeOne 边缘节点代理到国内，实现快速访问
+
+**使用方式**:
+```javascript
+// 前端代码中自动处理，无需手动调用
+const originalUrl = 'https://raw.githubusercontent.com/user/repo/main/image.png';
+const proxiedUrl = '/api/proxy?url=' + encodeURIComponent(originalUrl);
+```
+
+**支持的资源类型**:
+- 预览图（PNG、JPG、WebP等）
+- 主题包（ZIP 文件）
+- GitHub Raw 文件
+- GitHub API 响应
+
+**性能特点**:
+- 智能分流：文本资源缓冲处理，二进制资源流式转发
+- 自动解压：处理 gzip 压缩
+- CORS 支持：自动添加跨域头
+- 安全验证：仅允许 GitHub 官方域名
+
 ## 九、相关链接
 
 - [EdgeOne 官方文档](https://cloud.tencent.com/document/product/1552)
