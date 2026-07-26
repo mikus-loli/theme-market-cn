@@ -1,0 +1,8 @@
+{
+  "name": "theme-market-cn",
+  "version": "1.1.0",
+  "build": {
+    "command": "npm run build",
+    "output": "./dist"
+  }
+}

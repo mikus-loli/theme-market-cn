@@ -1,0 +1,21 @@
+{
+  "name": "theme-market-cn",
+  "version": "1.0.0",
+  "description": "自动同步上游主题仓库并托管到 EdgeOne Pages",
+  "main": "index.js",
+  "scripts": {
+    "sync": "node scripts/sync-upstream.js",
+    "build": "node scripts/build.js",
+    "dev": "npx edgeone makers dev",
+    "deploy": "npx edgeone makers deploy ./dist -n theme-market-cn"
+  },
+  "keywords": [
+    "edgeone",
+    "github",
+    "sync",
+    "themes"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {}
+}
