@@ -327,11 +327,18 @@ async function build() {
     
     // 构建 HTML 页面
     buildIndexHtml(v1Data);
-    
+
     console.log('✅ 构建完成！');
     console.log(`📁 输出目录: ${distDir}`);
     console.log(`📊 包含 ${v1Data.themes.length} 个主题`);
-    
+
+    // 清理 HTTP agents，确保进程退出
+    https.globalAgent.destroy();
+    http.globalAgent.destroy();
+
+    // 显式退出进程
+    process.exit(0);
+
   } catch (error) {
     console.error('❌ 构建失败：', error);
     process.exit(1);
