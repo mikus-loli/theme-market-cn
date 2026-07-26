@@ -118,6 +118,8 @@
         :root[data-theme="light"] .btn-secondary:hover { background: rgba(15, 23, 42, 0.06); }
         :root[data-theme="light"] .toast { background: #fff; }
         :root[data-theme="light"] .back-to-top { background: #fff; }
+        :root[data-theme="light"] .data-source-url { background: #fff; border-color: rgba(15,23,42,0.1); }
+        :root[data-theme="light"] .btn-copy { box-shadow: 0 4px 12px -2px rgba(99, 102, 241, 0.25); }
         :root[data-theme="light"] .data-source-dot { box-shadow: 0 0 6px var(--success); }
 
         /* ========== 基础重置 ========== */
@@ -222,39 +224,77 @@
             margin-top: 4px;
         }
         .data-source {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: var(--radius-full);
-            padding: 8px 16px 8px 12px;
+            border-radius: var(--radius);
+            padding: var(--space-md) var(--space-lg);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            transition: border-color 0.2s, background 0.2s;
+            transition: border-color 0.3s;
         }
-        .data-source:hover {
-            border-color: var(--border-hover);
-            background: var(--surface-hover);
+        .data-source:hover { border-color: var(--border-hover); }
+        .data-source-title {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         .data-source-dot {
-            width: 8px;
-            height: 8px;
+            width: 7px;
+            height: 7px;
             background: var(--success);
             border-radius: 50%;
             box-shadow: 0 0 8px var(--success);
             animation: pulse 2s ease-in-out infinite;
             flex-shrink: 0;
         }
-        .data-source a {
-            color: var(--primary-light);
-            text-decoration: none;
-            font-size: 0.82rem;
-            font-weight: 500;
-            transition: color 0.2s;
-            font-family: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+        .data-source-row {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
         }
-        .data-source a:hover { color: var(--text); }
+        .data-source-url {
+            flex: 1;
+            min-width: 0;
+            background: var(--bg-soft);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xs);
+            padding: 10px 14px;
+            color: var(--text);
+            font-family: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+            font-size: 0.88rem;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow-x: auto;
+            scrollbar-width: none;
+            user-select: all;
+        }
+        .data-source-url::-webkit-scrollbar { display: none; }
+        .btn-copy {
+            flex-shrink: 0;
+            height: 42px;
+            padding: 0 18px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-xs);
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s var(--ease-smooth);
+        }
+        .btn-copy:hover { background: var(--primary-dark); transform: translateY(-1px); }
+        .btn-copy:active { transform: translateY(0); }
+        .btn-copy.copied { background: var(--success); }
+        .btn-copy svg { width: 16px; height: 16px; }
 
         @keyframes pulse {
             0%, 100% { opacity: 1; }
@@ -629,16 +669,10 @@
             margin-top: var(--space-xl);
             padding-top: var(--space-lg);
             border-top: 1px solid var(--border);
+            text-align: center;
             color: var(--text-muted);
             font-size: 0.88rem;
             line-height: 1.8;
-        }
-        .footer-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: var(--space-sm);
         }
         footer a {
             color: var(--primary-light);
@@ -800,6 +834,20 @@
                 </button>
         </header>
 
+        <section class="data-source" aria-label="主题源地址">
+            <div class="data-source-title">
+                <span class="data-source-dot"></span>
+                Komari 主题源
+            </div>
+            <div class="data-source-row">
+                <code class="data-source-url" id="source-url">https://komari-market.mikus.ink/v1.json</code>
+                <button class="btn-copy" id="btn-copy" aria-label="复制主题源地址">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    <span id="copy-text">复制</span>
+                </button>
+            </div>
+        </section>
+
         <section class="stats" aria-label="统计信息">
             <div class="stat-card">
                 <div class="stat-icon">📦</div>
@@ -839,13 +887,7 @@
         </main>
 
         <footer>
-            <div class="footer-row">
-                <p>数据来源：<a href="https://github.com/komari-monitor/theme-market" target="_blank" rel="noopener">komari-monitor/theme-market</a> · 托管于 <a href="https://cloud.tencent.com/product/eo" target="_blank" rel="noopener">EdgeOne Pages</a></p>
-                <div class="data-source">
-                    <span class="data-source-dot"></span>
-                    <a href="https://komari-market.mikus.ink/v1.json" target="_blank" rel="noopener">v1.json</a>
-                </div>
-            </div>
+            <p>数据来源：<a href="https://github.com/komari-monitor/theme-market" target="_blank" rel="noopener">komari-monitor/theme-market</a> · 托管于 <a href="https://cloud.tencent.com/product/eo" target="_blank" rel="noopener">EdgeOne Pages</a></p>
         </footer>
     </div>
 
@@ -1085,9 +1127,47 @@
             });
         }
 
+        // ========== 复制主题源 ==========
+        function initCopy() {
+            const btn = document.getElementById('btn-copy');
+            const copyText = document.getElementById('copy-text');
+            const url = document.getElementById('source-url').textContent;
+
+            btn.addEventListener('click', async () => {
+                try {
+                    await navigator.clipboard.writeText(url);
+                    btn.classList.add('copied');
+                    copyText.textContent = '已复制';
+                    showToast('主题源地址已复制到剪贴板', 'success');
+                    setTimeout(() => {
+                        btn.classList.remove('copied');
+                        copyText.textContent = '复制';
+                    }, 2000);
+                } catch {
+                    // fallback
+                    const ta = document.createElement('textarea');
+                    ta.value = url;
+                    ta.style.position = 'fixed';
+                    ta.style.opacity = '0';
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(ta);
+                    btn.classList.add('copied');
+                    copyText.textContent = '已复制';
+                    showToast('主题源地址已复制到剪贴板', 'success');
+                    setTimeout(() => {
+                        btn.classList.remove('copied');
+                        copyText.textContent = '复制';
+                    }, 2000);
+                }
+            });
+        }
+
         // ========== 初始化 ==========
         window.addEventListener('DOMContentLoaded', () => {
             initTheme();
+            initCopy();
             loadThemes();
             initBackToTop();
         });
