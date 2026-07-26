@@ -118,7 +118,17 @@ async function downloadThemeResources(v1Data, distDir) {
 // 构建 HTML 页面
 function buildIndexHtml(v1Data) {
   console.log('构建主题市场页面...');
-  
+
+  const templatePath = path.join(__dirname, '..', 'src', 'index.html.template');
+  let indexHtml = fs.readFileSync(templatePath, 'utf8');
+
+  fs.writeFileSync(path.join(distDir, 'index.html'), indexHtml);
+  console.log('✅ 生成主题市场页面');
+}
+
+function _buildIndexHtml_old(v1Data) {
+  console.log('构建主题市场页面...');
+
   const indexHtml = `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -412,9 +422,6 @@ function buildIndexHtml(v1Data) {
     </script>
 </body>
 </html>`;
-
-  fs.writeFileSync(path.join(distDir, 'index.html'), indexHtml);
-  console.log('✅ 生成主题市场页面');
 }
 
 // 主构建流程
