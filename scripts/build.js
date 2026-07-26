@@ -74,7 +74,7 @@ async function downloadThemeResources(v1Data, distDir) {
         downloadFile(theme.preview, previewPath)
           .then(() => {
             // 直接替换原始字段为完整 URL
-            const baseUrl = process.env.BASE_URL || 'https://theme-market-cn.edgeonepages.com';
+            const baseUrl = process.env.BASE_URL || 'https://komari-market.mikus.ink';
             theme.preview = `${baseUrl}/resources/${previewFilename}`;
             successCount++;
             console.log(`  ✓ 预览图：${themeName}`);
@@ -96,7 +96,7 @@ async function downloadThemeResources(v1Data, distDir) {
         downloadFile(theme.download, downloadPath)
           .then(() => {
             // 直接替换原始字段为完整 URL
-            const baseUrl = process.env.BASE_URL || 'https://theme-market-cn.edgeonepages.com';
+            const baseUrl = process.env.BASE_URL || 'https://komari-market.mikus.ink';
             theme.download = `${baseUrl}/resources/${downloadFilename}`;
             successCount++;
             console.log(`  ✓ 主题包：${themeName} v${theme.version}`);
@@ -439,7 +439,7 @@ async function build() {
     console.log(`📊 加载 ${v1Data.themes.length} 个主题`);
 
     // 显示 BASE_URL 配置
-    const baseUrl = process.env.BASE_URL || 'https://theme-market-cn.edgeonepages.com';
+    const baseUrl = process.env.BASE_URL || 'https://komari-market.mikus.ink';
     console.log(`🌐 基础 URL: ${baseUrl}`);
     
     // 下载资源

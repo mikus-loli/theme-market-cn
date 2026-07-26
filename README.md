@@ -55,8 +55,8 @@ EdgeOne 加速方式：
 **替换后**：
 ```json
 {
-  "preview": "https://theme-market-cn.edgeonepages.com/resources/ThemeName-preview.png",
-  "download": "https://theme-market-cn.edgeonepages.com/resources/ThemeName-1.0.zip"
+  "preview": "https://komari-market.mikus.ink/resources/ThemeName-preview.png",
+  "download": "https://komari-market.mikus.ink/resources/ThemeName-1.0.zip"
 }
 ```
 
@@ -68,7 +68,7 @@ EdgeOne 加速方式：
 
 - `EDGEONE_API_TOKEN`: EdgeOne API Token（获取方式见下方）
 - `UPSTREAM_REPO`: 上游仓库地址（例如：`https://github.com/komari-monitor/theme-market`）
-- `BASE_URL`: EdgeOne Pages 部署域名（可选，默认：`https://theme-market-cn.edgeonepages.com`）
+- `BASE_URL`: EdgeOne Pages 部署域名（可选，默认：`https://komari-market.mikus.ink`）
 
 #### 获取 EdgeOne API Token
 
