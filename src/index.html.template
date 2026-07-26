@@ -118,7 +118,7 @@
         :root[data-theme="light"] .btn-secondary:hover { background: rgba(15, 23, 42, 0.06); }
         :root[data-theme="light"] .toast { background: #fff; }
         :root[data-theme="light"] .back-to-top { background: #fff; }
-        :root[data-theme="light"] .data-source-label::before { box-shadow: 0 0 6px var(--success); }
+        :root[data-theme="light"] .data-source-dot { box-shadow: 0 0 6px var(--success); }
 
         /* ========== 基础重置 ========== */
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -222,52 +222,44 @@
             margin-top: 4px;
         }
         .data-source {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-full);
+            padding: 8px 16px 8px 12px;
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            transition: border-color 0.2s, transform 0.2s;
+            transition: border-color 0.2s, background 0.2s;
         }
         .data-source:hover {
             border-color: var(--border-hover);
-            transform: translateY(-1px);
+            background: var(--surface-hover);
         }
-        .data-source-label {
-            font-size: 0.7rem;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 600;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .data-source-label::before {
-            content: '';
-            width: 6px;
-            height: 6px;
+        .data-source-dot {
+            width: 8px;
+            height: 8px;
             background: var(--success);
             border-radius: 50%;
             box-shadow: 0 0 8px var(--success);
             animation: pulse 2s ease-in-out infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            flex-shrink: 0;
         }
         .data-source a {
             color: var(--primary-light);
             text-decoration: none;
-            font-size: 0.88rem;
+            font-size: 0.82rem;
             font-weight: 500;
-            word-break: break-all;
             transition: color 0.2s;
             font-family: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
         }
         .data-source a:hover { color: var(--text); }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
 
         /* ========== 主题切换 ========== */
         .theme-toggle {
@@ -637,10 +629,16 @@
             margin-top: var(--space-xl);
             padding-top: var(--space-lg);
             border-top: 1px solid var(--border);
-            text-align: center;
             color: var(--text-muted);
             font-size: 0.88rem;
             line-height: 1.8;
+        }
+        .footer-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
         }
         footer a {
             color: var(--primary-light);
@@ -796,16 +794,10 @@
                     <p>自动同步上游仓库，国内加速访问</p>
                 </div>
             </div>
-            <div style="display:flex; gap:var(--space-sm); align-items:center;">
-                <div class="data-source">
-                    <div class="data-source-label">数据源</div>
-                    <a href="https://komari-market.mikus.ink/v1.json" target="_blank" rel="noopener">komari-market.mikus.ink/v1.json</a>
-                </div>
-                <button class="theme-toggle" id="theme-toggle" aria-label="切换主题">
+            <button class="theme-toggle" id="theme-toggle" aria-label="切换主题">
                     <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
                     <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                 </button>
-            </div>
         </header>
 
         <section class="stats" aria-label="统计信息">
@@ -847,8 +839,13 @@
         </main>
 
         <footer>
-            <p>数据来源：<a href="https://github.com/komari-monitor/theme-market" target="_blank" rel="noopener">komari-monitor/theme-market</a></p>
-            <p>托管于 <a href="https://cloud.tencent.com/product/eo" target="_blank" rel="noopener">EdgeOne Pages</a>，所有资源通过 CDN 加速分发</p>
+            <div class="footer-row">
+                <p>数据来源：<a href="https://github.com/komari-monitor/theme-market" target="_blank" rel="noopener">komari-monitor/theme-market</a> · 托管于 <a href="https://cloud.tencent.com/product/eo" target="_blank" rel="noopener">EdgeOne Pages</a></p>
+                <div class="data-source">
+                    <span class="data-source-dot"></span>
+                    <a href="https://komari-market.mikus.ink/v1.json" target="_blank" rel="noopener">v1.json</a>
+                </div>
+            </div>
         </footer>
     </div>
 
