@@ -1,0 +1,24 @@
+# 依赖
+node_modules/
+
+# 构建产物（由 CI 构建并提交，本地构建时也忽略避免误提交）
+dist/
+
+# 同步与构建产生的元信息（按需提交，这里默认忽略本地副本）
+# data/.sync-meta.json
+# dist/.build-meta.json
+
+# 日志
+logs/
+*.log
+
+# 临时文件
+.temp-*
+*.tmp
+.cache/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

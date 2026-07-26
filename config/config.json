@@ -1,0 +1,36 @@
+{
+  "upstream": {
+    "repo": "mikus-loli/theme-market",
+    "branch": "main",
+    "v1JsonPath": "v1.json",
+    "rawBaseUrl": "https://raw.githubusercontent.com",
+    "apiBaseUrl": "https://api.github.com",
+    "mirrorRawUrl": "https://mirror.mikus.ink/https://raw.githubusercontent.com"
+  },
+  "edgeone": {
+    "domain": "https://komari-market.mikus.ink",
+    "resourcePath": "/resources/",
+    "projectName": "theme-market-cn"
+  },
+  "build": {
+    "outputDir": "dist",
+    "dataDir": "data",
+    "srcDir": "src",
+    "resourcesDir": "resources",
+    "concurrency": 8,
+    "timeoutMs": 60000,
+    "maxRetries": 3,
+    "retryDelayMs": 2000
+  },
+  "sync": {
+    "schedule": "0 0 * * *",
+    "commitPrefix": "chore: 同步上游仓库更新"
+  },
+  "logging": {
+    "level": "info",
+    "dir": "logs",
+    "maxFiles": 14,
+    "console": true,
+    "file": true
+  }
+}

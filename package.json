@@ -1,0 +1,25 @@
+{
+  "name": "theme-market-cn",
+  "version": "1.0.0",
+  "description": "通过 EdgeOne 加速托管在 GitHub 上的 Komari 主题源，自动同步上游资源并替换为加速链接",
+  "private": true,
+  "scripts": {
+    "sync": "node scripts/sync-upstream.js",
+    "build": "node scripts/build.js",
+    "sync:build": "node scripts/sync-upstream.js && node scripts/build.js",
+    "dev": "npx edgeone makers dev",
+    "deploy": "npx edgeone makers deploy ./dist -n theme-market-cn"
+  },
+  "keywords": [
+    "edgeone",
+    "komari",
+    "theme-market",
+    "github-sync",
+    "cdn"
+  ],
+  "author": "mikus-loli",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}
