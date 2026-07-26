@@ -1,6 +1,6 @@
 {
   "upstream": {
-    "repo": "mikus-loli/theme-market",
+    "repo": "komari-monitor/theme-market",
     "branch": "main",
     "v1JsonPath": "v1.json",
     "rawBaseUrl": "https://raw.githubusercontent.com",
@@ -23,7 +23,7 @@
     "retryDelayMs": 2000
   },
   "sync": {
-    "schedule": "0 * * * *",
+    "schedule": "*/10 * * * *",
     "commitPrefix": "chore: 同步上游仓库更新"
   },
   "logging": {
