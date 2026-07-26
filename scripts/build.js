@@ -162,22 +162,23 @@ async function main() {
     replaced: success,
   });
 
-  // 9. 复制前端静态资源（若存在）
+  // 9. 运行 Vite 构建（输出到 dist/，emptyOutDir: false 不会清除已下载的资源）
   if (fs.existsSync(SRC_DIR)) {
-    logger.info('复制前端静态资源');
-    const entries = fs.readdirSync(SRC_DIR, { withFileTypes: true });
-    for (const entry of entries) {
-      const src = path.join(SRC_DIR, entry.name);
-      const dest = path.join(DIST_DIR, entry.name);
-      if (entry.isFile()) {
-        fs.copyFileSync(src, dest);
-      } else if (entry.isDirectory()) {
-        fs.cpSync(src, dest, { recursive: true });
-      }
+    logger.info('运行 Vite 构建前端应用...');
+    const { execSync } = require('child_process');
+    try {
+      execSync('npx vite build', {
+        cwd: ROOT_DIR,
+        stdio: 'inherit',
+        env: { ...process.env, BASE_URL },
+      });
+      logger.info('Vite 构建完成');
+    } catch (e) {
+      logger.error('Vite 构建失败', { error: e.message });
+      process.exit(1);
     }
-    logger.info('前端静态资源已复制');
   } else {
-    logger.warn('src 目录不存在，跳过前端资源复制', { dir: SRC_DIR });
+    logger.warn('src 目录不存在，跳过前端构建', { dir: SRC_DIR });
   }
 
   // 10. 写入构建元信息

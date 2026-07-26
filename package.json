@@ -1,25 +1,36 @@
 {
   "name": "theme-market-cn",
-  "version": "1.0.0",
-  "description": "通过 EdgeOne 加速托管在 GitHub 上的 Komari 主题源，自动同步上游资源并替换为加速链接",
+  "version": "2.0.0",
+  "description": "通过 EdgeOne 加速托管在 GitHub 上的 Komari 主题源，提供现代化文档型 UI 与组件库",
   "private": true,
+  "type": "module",
   "scripts": {
     "sync": "node scripts/sync-upstream.js",
+    "dev": "vite",
     "build": "node scripts/build.js",
     "sync:build": "node scripts/sync-upstream.js && node scripts/build.js",
-    "dev": "npx edgeone makers dev",
+    "preview": "vite preview",
     "deploy": "npx edgeone makers deploy ./dist -n theme-market-cn"
   },
   "keywords": [
     "edgeone",
     "komari",
     "theme-market",
-    "github-sync",
-    "cdn"
+    "vue3",
+    "vite",
+    "component-library"
   ],
   "author": "mikus-loli",
   "license": "MIT",
   "engines": {
     "node": ">=18"
+  },
+  "dependencies": {
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "vite": "^5.2.0"
   }
 }
