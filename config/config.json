@@ -23,7 +23,7 @@
     "retryDelayMs": 2000
   },
   "sync": {
-    "schedule": "*/10 * * * *",
+    "schedule": "5 12 * * *",
     "commitPrefix": "chore: 同步上游仓库更新"
   },
   "logging": {
