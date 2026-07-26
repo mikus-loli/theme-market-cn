@@ -1054,8 +1054,10 @@
 
             // 读取存储的主题偏好，默认跟随系统
             const saved = localStorage.getItem('theme');
-            if (saved) {
-                root.setAttribute('data-theme', saved);
+            if (saved === 'light') {
+                root.setAttribute('data-theme', 'light');
+            } else if (saved === 'dark') {
+                root.removeAttribute('data-theme');
             } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
                 root.setAttribute('data-theme', 'light');
             }
@@ -1069,10 +1071,13 @@
 
             toggle.addEventListener('click', () => {
                 const isLight = root.getAttribute('data-theme') === 'light';
-                const next = isLight ? 'dark' : 'light';
-                root.setAttribute('data-theme', next === 'dark' ? '' : 'light');
-                if (next === 'dark') root.removeAttribute('data-theme');
-                localStorage.setItem('theme', next);
+                if (isLight) {
+                    root.removeAttribute('data-theme');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    root.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                }
                 updateMetaColor();
             });
         }
