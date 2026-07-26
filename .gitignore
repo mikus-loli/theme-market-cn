@@ -25,3 +25,7 @@ Thumbs.db
 
 # EdgeOne
 .edgeone/
+
+# 临时目录
+.temp-sync/
+.temp-upstream/
