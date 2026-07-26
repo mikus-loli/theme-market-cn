@@ -383,13 +383,17 @@ function buildIndexHtml(v1Data) {
                     const themeCard = document.createElement('div');
                     themeCard.className = 'theme-item';
                     themeCard.innerHTML = \`
+                        <img src="\${previewUrl}" alt="\${name}" class="theme-preview" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22180%22><rect fill=%22%23f8f9fa%22 width=%22300%22 height=%22180%22/><text x=%22150%22 y=%2290%22 text-anchor=%22middle%22 fill=%22%236c757d%22 font-size=%2216%22>预览图加载失败</text></svg>'">
                         <div class="theme-name">\${name}</div>
                         <div class="theme-description">\${description}</div>
                         <div class="theme-meta">
                             <span>v\${theme.version}</span>
                             <span>by \${author}</span>
                         </div>
-                        <a href="\${theme.url}" target="_blank" class="theme-link">查看详情 →</a>
+                        <div class="theme-actions">
+                            <a href="\${theme.url}" target="_blank" class="theme-btn btn-secondary">查看详情</a>
+                            <a href="\${downloadUrl}" class="theme-btn btn-primary" download>下载主题</a>
+                        </div>
                     \`;
                     
                     themeList.appendChild(themeCard);
