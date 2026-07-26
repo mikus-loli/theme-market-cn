@@ -1,13 +1,13 @@
 # Theme Market CN
 
-自动同步上游仓库主题源，并通过 EdgeOne Pages 托管。**所有 GitHub 资源通过边缘函数加速，国内访问超快！**
+自动同步上游仓库主题源，并通过 EdgeOne Pages 托管。**构建时自动下载所有主题资源到本地，实现全链路国内加速！**
 
 ## 功能特性
 
 - 🔄 自动监测上游仓库更新
 - 📦 自动同步主题源文件
 - 🚀 通过 EdgeOne Pages 托管，国内访问速度快
-- ⚡ **GitHub 资源通过边缘函数加速**（预览图、下载链接）
+- ⚡ **构建时下载所有资源到本地**（预览图、主题包）
 - 🎯 零成本方案，免费额度足够个人使用
 - 🤖 GitHub Actions 自动化部署
 
@@ -18,17 +18,27 @@
 用户 → GitHub（国外）→ 预览图/下载文件（慢）
 
 EdgeOne 加速方式：
-用户 → EdgeOne CDN（国内）→ v1.json（快）
-     → EdgeOne 边缘函数（国内）→ GitHub 资源（快）
+构建时：下载所有资源 → 上传到 EdgeOne CDN
+用户访问时：直接从 EdgeOne CDN 获取（快）
 ```
 
 ### 加速范围
 
 - ✅ v1.json 主题目录文件
-- ✅ 预览图（preview）
-- ✅ 主题下载链接（download）
-- ✅ GitHub API 请求
-- ✅ 其他 GitHub 资源
+- ✅ 所有预览图（preview）已缓存到本地
+- ✅ 所有主题包（download）已缓存到本地
+- ✅ 完全不依赖 GitHub 实时可用性
+
+## 构建流程
+
+```
+1. 同步上游 v1.json → data/v1.json
+2. 下载所有预览图 → dist/resources/*.png
+3. 下载所有主题包 → dist/resources/*.zip
+4. 更新 v1.json 指向本地资源
+5. 生成主题市场页面 → dist/index.html
+6. 部署到 EdgeOne Pages
+```
 
 ## 配置说明
 
@@ -58,7 +68,7 @@ EdgeOne 加速方式：
 
 - **定时同步**：每天自动检查上游更新
 - **手动触发**：可在 Actions 页面手动触发同步
-- **自动部署**：有更新时自动部署到 EdgeOne
+- **自动构建**：有更新时自动下载资源并部署到 EdgeOne
 
 ## 本地开发
 
@@ -66,45 +76,15 @@ EdgeOne 加速方式：
 # 安装依赖（如果有）
 npm install
 
-# 本地测试
-npm run dev
+# 本地测试（注意：构建会下载所有资源，可能需要较长时间）
+npm run build
 
 # 手动同步上游
 npm run sync
 
-# 构建项目
-npm run build
-
 # 部署到 EdgeOne
 npx edgeone makers deploy ./dist -n theme-market-cn -t $EDGEONE_API_TOKEN
 ```
-
-## 边缘函数 API
-
-### GitHub 资源代理
-
-**端点**: `/api/proxy`
-
-**方法**: `GET`
-
-**参数**:
-- `url` (必需): 要代理的 GitHub URL
-
-**示例**:
-```javascript
-// 原始链接
-const originalUrl = 'https://raw.githubusercontent.com/user/repo/main/image.png';
-
-// 通过边缘函数代理
-const proxiedUrl = '/api/proxy?url=' + encodeURIComponent(originalUrl);
-```
-
-**支持的 GitHub 域名**:
-- github.com
-- raw.githubusercontent.com
-- github.githubassets.com
-- objects.githubusercontent.com
-- opengraph.githubassets.com
 
 ## 项目结构
 
@@ -113,38 +93,50 @@ const proxiedUrl = '/api/proxy?url=' + encodeURIComponent(originalUrl);
 ├── .github/
 │   └── workflows/
 │       └── sync-and-deploy.yml    # GitHub Actions 工作流
-├── functions/
-│   └── api/
-│       └── proxy.js               # GitHub 资源代理边缘函数
 ├── scripts/
 │   ├── sync-upstream.js           # 同步脚本
-│   └── build.js                   # 构建脚本
+│   └── build.js                   # 构建脚本（下载资源）
 ├── data/                          # 主题源文件目录
-│   └── v1.json                    # 主题目录
+│   └── v1.json                    # 主题目录（原始）
 ├── dist/                          # 构建输出
 │   ├── index.html                 # 主题市场首页
-│   └── v1.json                    # 主题目录
+│   ├── v1.json                    # 主题目录（本地链接）
+│   └── resources/                 # 本地缓存的资源
+│       ├── *-preview.png         # 预览图
+│       └── *-*.zip               # 主题包
 ├── package.json                   # 项目配置
 ├── edgeone.config.json            # EdgeOne 配置
 └── README.md                      # 本文件
 ```
 
-## 性能优化
+## 性能优势
 
-### 预览图加载
-- 通过边缘函数从 GitHub 代理到国内
-- 自动添加 CORS 头，支持跨域
-- 支持流式传输，节省内存
+| 资源类型 | 传统方式 | EdgeOne 加速 |
+|---------|---------|-------------|
+| v1.json | GitHub 直连（慢） | EdgeOne CDN（快）|
+| 预览图 | GitHub 直连（慢） | 本地缓存（快）|
+| 主题下载 | GitHub 直连（慢） | 本地缓存（快）|
 
-### 主题下载
-- Release 附件通过边缘函数加速
-- 支持大文件流式转发
-- 自动处理重定向
+### 构建时间估算
 
-### 安全性
-- 仅允许代理 GitHub 官方域名
-- 自动删除可能冲突的安全头
-- 支持跨域访问控制
+- 23 个主题
+- 预览图：约 23 张图片，总大小约 5-10 MB
+- 主题包：约 23 个 ZIP 文件，总大小约 50-100 MB
+- 预计构建时间：5-15 分钟（取决于网络速度）
+
+## 优势对比
+
+### 边缘函数代理方案（之前）
+- ✅ 实时代理，无需下载
+- ❌ 依赖 GitHub 实时可用性
+- ❌ 仍然需要跨域请求
+
+### 本地缓存方案（当前）
+- ✅ 不依赖 GitHub 实时可用性
+- ✅ 完全从 CDN 获取，速度最快
+- ✅ 支持离线访问
+- ⚠️  构建时间较长（一次性）
+- ⚠️  占用 CDN 存储空间
 
 ## 许可证
 

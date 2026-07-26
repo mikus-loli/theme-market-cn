@@ -221,36 +221,34 @@ npm run deploy
 edgeone makers logs theme-market-cn
 ```
 
-## 九、边缘函数使用说明
+## 九、构建时间优化（可选）
 
-### GitHub 资源代理
+### 只下载预览图
 
-项目包含一个边缘函数，用于代理 GitHub 资源：
+如果觉得下载主题包太慢，可以修改构建脚本只下载预览图：
 
-**路径**: `/api/proxy`
-
-**功能**: 将 GitHub 资源通过 EdgeOne 边缘节点代理到国内，实现快速访问
-
-**使用方式**:
 ```javascript
-// 前端代码中自动处理，无需手动调用
-const originalUrl = 'https://raw.githubusercontent.com/user/repo/main/image.png';
-const proxiedUrl = '/api/proxy?url=' + encodeURIComponent(originalUrl);
+// scripts/build.js
+// 注释掉下载主题包的代码
+/*
+if (theme.download) {
+  // ...
+}
+*/
 ```
 
-**支持的资源类型**:
-- 预览图（PNG、JPG、WebP等）
-- 主题包（ZIP 文件）
-- GitHub Raw 文件
-- GitHub API 响应
+### 跳过下载失败的资源
 
-**性能特点**:
-- 智能分流：文本资源缓冲处理，二进制资源流式转发
-- 自动解压：处理 gzip 压缩
-- CORS 支持：自动添加跨域头
-- 安全验证：仅允许 GitHub 官方域名
+构建脚本已经实现：
+- 下载失败时保留原始 GitHub 链接
+- 不影响整体构建流程
+- 用户仍可访问原始链接
 
-## 九、相关链接
+### 并发下载
+
+当前脚本已经使用 `Promise.allSettled` 并发下载所有资源，速度已经是最优。
+
+## 十、常见问题
 
 - [EdgeOne 官方文档](https://cloud.tencent.com/document/product/1552)
 - [EdgeOne Pages 文档](https://cloud.tencent.com/document/product/1552/127365)

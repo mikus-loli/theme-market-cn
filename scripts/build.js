@@ -2,11 +2,13 @@
 
 const fs = require('fs');
 const path = require('path');
+const https = require('https');
+const http = require('http');
 
 console.log('🔨 开始构建项目...');
 
 const distDir = path.join(__dirname, '..', 'dist');
-const dataDir = path.join(__dirname, '..', 'data');  // 使用 data 目录
+const dataDir = path.join(__dirname, '..', 'data');
 
 // 清理构建目录
 if (fs.existsSync(distDir)) {
@@ -17,25 +19,103 @@ if (fs.existsSync(distDir)) {
 // 创建构建目录
 fs.mkdirSync(distDir, { recursive: true });
 
-// 复制主题目录文件到构建目录
-if (fs.existsSync(dataDir)) {
-  console.log('复制主题目录文件...');
-  fs.cpSync(dataDir, distDir, { recursive: true });
-} else {
-  console.log('⚠️  data 目录不存在，创建空目录');
-  fs.mkdirSync(distDir, { recursive: true });
+// 下载文件的辅助函数
+async function downloadFile(url, destPath) {
+  return new Promise((resolve, reject) => {
+    const protocol = url.startsWith('https') ? https : http;
+    const file = fs.createWriteStream(destPath);
+    
+    protocol.get(url, (response) => {
+      // 处理重定向
+      if (response.statusCode === 301 || response.statusCode === 302) {
+        const redirectUrl = response.headers.location;
+        downloadFile(redirectUrl, destPath).then(resolve).catch(reject);
+        return;
+      }
+      
+      if (response.statusCode !== 200) {
+        reject(new Error(`HTTP ${response.statusCode}: ${url}`));
+        return;
+      }
+      
+      response.pipe(file);
+      file.on('finish', () => {
+        file.close();
+        resolve();
+      });
+    }).on('error', (err) => {
+      fs.unlink(destPath, () => {});
+      reject(err);
+    });
+  });
 }
 
-// 读取主题目录
-let v1Data = null;
-const v1JsonPath = path.join(dataDir, 'v1.json');
-if (fs.existsSync(v1JsonPath)) {
-  v1Data = JSON.parse(fs.readFileSync(v1JsonPath, 'utf8'));
-  console.log(`📊 加载 ${v1Data.themes.length} 个主题`);
+// 下载主题资源
+async function downloadThemeResources(v1Data, distDir) {
+  const resourcesDir = path.join(distDir, 'resources');
+  fs.mkdirSync(resourcesDir, { recursive: true });
+  
+  console.log('📥 开始下载主题资源...');
+  
+  const downloadPromises = [];
+  let successCount = 0;
+  let failCount = 0;
+  
+  for (const theme of v1Data.themes) {
+    const themeName = theme.short || theme.name;
+    
+    // 下载预览图
+    if (theme.preview) {
+      const previewExt = path.extname(theme.preview.split('?')[0]) || '.png';
+      const previewFilename = `${themeName}-preview${previewExt}`;
+      const previewPath = path.join(resourcesDir, previewFilename);
+      
+      downloadPromises.push(
+        downloadFile(theme.preview, previewPath)
+          .then(() => {
+            theme.preview_local = `/resources/${previewFilename}`;
+            successCount++;
+            console.log(`  ✓ 预览图：${themeName}`);
+          })
+          .catch(err => {
+            console.error(`  ✗ 预览图失败：${themeName} - ${err.message}`);
+            theme.preview_local = theme.preview;
+            failCount++;
+          })
+      );
+    }
+    
+    // 下载主题包
+    if (theme.download) {
+      const downloadExt = path.extname(theme.download.split('?')[0]) || '.zip';
+      const downloadFilename = `${themeName}-${theme.version}${downloadExt}`;
+      const downloadPath = path.join(resourcesDir, downloadFilename);
+      
+      downloadPromises.push(
+        downloadFile(theme.download, downloadPath)
+          .then(() => {
+            theme.download_local = `/resources/${downloadFilename}`;
+            successCount++;
+            console.log(`  ✓ 主题包：${themeName} v${theme.version}`);
+          })
+          .catch(err => {
+            console.error(`  ✗ 主题包失败：${themeName} - ${err.message}`);
+            theme.download_local = theme.download;
+            failCount++;
+          })
+      );
+    }
+  }
+  
+  await Promise.allSettled(downloadPromises);
+  console.log(`✅ 下载完成：成功 ${successCount}，失败 ${failCount}`);
 }
 
-// 创建索引页面
-const indexHtml = `<!DOCTYPE html>
+// 构建 HTML 页面
+function buildIndexHtml(v1Data) {
+  console.log('构建主题市场页面...');
+  
+  const indexHtml = `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -163,34 +243,11 @@ const indexHtml = `<!DOCTYPE html>
         </div>
 
         <div class="footer">
-            <p>Powered by <a href="https://cloud.tencent.com/product/eo" target="_blank">EdgeOne Pages</a> | 自动同步上游仓库 | GitHub 资源通过边缘函数加速</p>
+            <p>Powered by <a href="https://cloud.tencent.com/product/eo" target="_blank">EdgeOne Pages</a> | 自动同步上游仓库 | 资源已缓存到国内 CDN</p>
         </div>
     </div>
 
     <script>
-        // GitHub 链接代理函数
-        function proxyGitHubUrl(url) {
-            if (!url) return url;
-            
-            // 检查是否为 GitHub 链接
-            const githubPatterns = [
-                /^https?:\\/\\/github\\.com\\//,
-                /^https?:\\/\\/raw\\.githubusercontent\\.com\\//,
-                /^https?:\\/\\/github\\.githubassets\\.com\\//,
-                /^https?:\\/\\/objects\\.githubusercontent\\.com\\//
-            ];
-            
-            const isGitHubUrl = githubPatterns.some(pattern => pattern.test(url));
-            
-            if (isGitHubUrl) {
-                // 使用边缘函数代理
-                return '/api/proxy?url=' + encodeURIComponent(url);
-            }
-            
-            return url;
-        }
-
-        // 加载主题数据
         async function loadThemes() {
             try {
                 const response = await fetch('./v1.json');
@@ -203,9 +260,8 @@ const indexHtml = `<!DOCTYPE html>
                     const name = theme.name['zh-CN'] || theme.name;
                     const description = theme.description['zh-CN'] || theme.description || '暂无描述';
                     const author = theme.author['zh-CN'] || theme.author;
-                    
-                    // 代理预览图链接
-                    const previewUrl = proxyGitHubUrl(theme.preview);
+                    const previewUrl = theme.preview_local || theme.preview;
+                    const downloadUrl = theme.download_local || theme.download;
                     
                     const themeCard = document.createElement('div');
                     themeCard.className = 'theme-item';
@@ -229,16 +285,58 @@ const indexHtml = `<!DOCTYPE html>
             }
         }
 
-        // 页面加载完成后执行
         window.addEventListener('DOMContentLoaded', loadThemes);
     </script>
 </body>
 </html>`;
 
-fs.writeFileSync(path.join(distDir, 'index.html'), indexHtml);
-
-console.log('✅ 构建完成！');
-console.log(`📁 输出目录: ${distDir}`);
-if (v1Data) {
-  console.log(`📊 包含 ${v1Data.themes.length} 个主题`);
+  fs.writeFileSync(path.join(distDir, 'index.html'), indexHtml);
+  console.log('✅ 生成主题市场页面');
 }
+
+// 主构建流程
+async function build() {
+  try {
+    // 复制主题目录文件到构建目录
+    if (!fs.existsSync(dataDir)) {
+      console.log('⚠️  data 目录不存在，创建空目录');
+      fs.mkdirSync(distDir, { recursive: true });
+      return;
+    }
+    
+    console.log('复制主题目录文件...');
+    fs.cpSync(dataDir, distDir, { recursive: true });
+    
+    // 读取主题目录
+    const v1JsonPath = path.join(dataDir, 'v1.json');
+    if (!fs.existsSync(v1JsonPath)) {
+      console.log('⚠️  v1.json 不存在');
+      return;
+    }
+    
+    const v1Data = JSON.parse(fs.readFileSync(v1JsonPath, 'utf8'));
+    console.log(`📊 加载 ${v1Data.themes.length} 个主题`);
+    
+    // 下载资源
+    await downloadThemeResources(v1Data, distDir);
+    
+    // 更新 v1.json，使用本地链接
+    const updatedV1Path = path.join(distDir, 'v1.json');
+    fs.writeFileSync(updatedV1Path, JSON.stringify(v1Data, null, 2), 'utf8');
+    console.log('✓ 更新了 v1.json 的资源链接');
+    
+    // 构建 HTML 页面
+    buildIndexHtml(v1Data);
+    
+    console.log('✅ 构建完成！');
+    console.log(`📁 输出目录: ${distDir}`);
+    console.log(`📊 包含 ${v1Data.themes.length} 个主题`);
+    
+  } catch (error) {
+    console.error('❌ 构建失败：', error);
+    process.exit(1);
+  }
+}
+
+// 执行构建
+build();
