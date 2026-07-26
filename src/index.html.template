@@ -3,166 +3,307 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="description" content="Komari 主题市场 - 自动同步上游仓库，国内 CDN 加速访问">
     <title>Komari Market - 主题市场</title>
     <style>
+        /* ========== 设计系统 ========== */
         :root {
+            /* 主色板 - 精致的紫蓝色系 */
             --primary: #6366f1;
             --primary-dark: #4f46e5;
             --primary-light: #a5b4fc;
+            --primary-glow: rgba(99, 102, 241, 0.4);
+
+            /* 辅助色 */
             --secondary: #06b6d4;
             --accent: #f472b6;
-            --bg: #0f172a;
-            --surface: rgba(30, 41, 59, 0.8);
-            --surface-solid: #1e293b;
-            --text: #f8fafc;
-            --text-secondary: #94a3b8;
-            --text-muted: #64748b;
-            --border: rgba(148, 163, 184, 0.15);
             --success: #22c55e;
-            --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-            --radius: 16px;
+            --warning: #f59e0b;
+
+            /* 背景层级 */
+            --bg: #0b1120;
+            --bg-soft: #0f172a;
+            --surface: rgba(30, 41, 59, 0.7);
+            --surface-hover: rgba(30, 41, 59, 0.9);
+            --surface-solid: #1e293b;
+
+            /* 文字层级 */
+            --text: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+
+            /* 边框 */
+            --border: rgba(148, 163, 184, 0.12);
+            --border-hover: rgba(148, 163, 184, 0.25);
+            --border-active: rgba(99, 102, 241, 0.5);
+
+            /* 阴影 */
+            --shadow-sm: 0 2px 8px -2px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 24px 48px -12px rgba(0, 0, 0, 0.5);
+            --shadow-glow: 0 0 40px -10px var(--primary-glow);
+
+            /* 圆角 */
+            --radius-xs: 6px;
             --radius-sm: 10px;
+            --radius: 14px;
+            --radius-lg: 20px;
+            --radius-full: 9999px;
+
+            /* 间距 */
+            --space-xs: 8px;
+            --space-sm: 12px;
+            --space-md: 20px;
+            --space-lg: 32px;
+            --space-xl: 48px;
+
+            /* 动画曲线 */
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+
+        /* ========== 基础重置 ========== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
             line-height: 1.6;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-feature-settings: 'cv11', 'ss01';
+            font-variation-settings: 'opsz' 32;
         }
+
+        /* 背景光晕 */
         body::before {
             content: '';
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
+            inset: 0;
             background:
-                radial-gradient(ellipse at 10% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 90% 80%, rgba(6, 182, 212, 0.12) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(244, 114, 182, 0.08) 0%, transparent 60%);
+                radial-gradient(ellipse 80% 60% at 15% 10%, rgba(99, 102, 241, 0.18) 0%, transparent 50%),
+                radial-gradient(ellipse 70% 50% at 85% 90%, rgba(6, 182, 212, 0.14) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 40% at 50% 50%, rgba(244, 114, 182, 0.08) 0%, transparent 60%);
             pointer-events: none;
             z-index: -1;
+            animation: bgShift 20s ease-in-out infinite alternate;
         }
+        @keyframes bgShift {
+            0% { transform: scale(1) rotate(0deg); }
+            100% { transform: scale(1.1) rotate(2deg); }
+        }
+
+        /* 滚动条 */
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb {
+            background: var(--surface-solid);
+            border-radius: var(--radius-full);
+            border: 2px solid var(--bg);
+        }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+
+        /* 文字选中 */
+        ::selection { background: var(--primary-glow); color: var(--text); }
+
+        /* ========== 容器 ========== */
         .container {
             max-width: 1440px;
             margin: 0 auto;
-            padding: 32px 24px 64px;
+            padding: 32px 24px 80px;
         }
+
+        /* ========== 头部 ========== */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 40px;
-            padding-bottom: 24px;
+            margin-bottom: var(--space-xl);
+            padding-bottom: var(--space-lg);
             border-bottom: 1px solid var(--border);
             flex-wrap: wrap;
-            gap: 20px;
+            gap: var(--space-md);
         }
         .brand {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: var(--space-md);
         }
         .logo {
-            width: 52px;
-            height: 52px;
+            width: 56px;
+            height: 56px;
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            border-radius: 14px;
+            border-radius: var(--radius);
             display: grid;
             place-items: center;
-            font-size: 26px;
-            box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.5);
+            font-size: 28px;
+            box-shadow: 0 12px 32px -8px var(--primary-glow), inset 0 1px 0 rgba(255,255,255,0.2);
+            position: relative;
+            animation: logoPulse 4s ease-in-out infinite;
         }
-        .brand h1 {
-            font-size: 1.9rem;
+        @keyframes logoPulse {
+            0%, 100% { box-shadow: 0 12px 32px -8px var(--primary-glow), inset 0 1px 0 rgba(255,255,255,0.2); }
+            50% { box-shadow: 0 12px 40px -4px var(--primary-glow), inset 0 1px 0 rgba(255,255,255,0.2); }
+        }
+        .brand-text h1 {
+            font-size: 1.85rem;
             font-weight: 700;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.025em;
             background: linear-gradient(135deg, #fff 0%, var(--primary-light) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            line-height: 1.2;
         }
-        .brand p {
+        .brand-text p {
             color: var(--text-secondary);
             font-size: 0.95rem;
-            margin-top: 2px;
+            margin-top: 4px;
         }
         .data-source {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
-            padding: 14px 18px;
-            backdrop-filter: blur(10px);
+            padding: var(--space-sm) var(--space-md);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .data-source:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-1px);
         }
         .data-source-label {
-            font-size: 0.75rem;
-            color: var(--text-muted);
+            font-size: 0.7rem;
+            color: var(--text-dim);
             text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 6px;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .data-source-label::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--success);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--success);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
         .data-source a {
             color: var(--primary-light);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 500;
             word-break: break-all;
             transition: color 0.2s;
+            font-family: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
         }
         .data-source a:hover { color: var(--text); }
+
+        /* ========== 统计卡片 ========== */
         .stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 16px;
-            margin-bottom: 48px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
         }
         .stat-card {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 24px;
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s, border-color 0.3s;
+            padding: var(--space-md) var(--space-lg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: transform 0.3s var(--ease-spring), border-color 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-glow), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
         .stat-card:hover {
             transform: translateY(-4px);
-            border-color: rgba(99, 102, 241, 0.3);
+            border-color: var(--border-active);
+            box-shadow: var(--shadow-md);
         }
+        .stat-card:hover::before { opacity: 1; }
         .stat-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-sm);
             display: grid;
             place-items: center;
-            font-size: 1.3rem;
-            margin-bottom: 14px;
+            font-size: 1.4rem;
+            margin-bottom: var(--space-sm);
         }
-        .stat-card:nth-child(1) .stat-icon { background: rgba(99, 102, 241, 0.15); }
-        .stat-card:nth-child(2) .stat-icon { background: rgba(6, 182, 212, 0.15); }
-        .stat-card:nth-child(3) .stat-icon { background: rgba(34, 197, 94, 0.15); }
+        .stat-card:nth-child(1) .stat-icon { background: rgba(99, 102, 241, 0.15); color: var(--primary-light); }
+        .stat-card:nth-child(2) .stat-icon { background: rgba(6, 182, 212, 0.15); color: #67e8f9; }
+        .stat-card:nth-child(3) .stat-icon { background: rgba(34, 197, 94, 0.15); color: #86efac; }
         .stat-number {
-            font-size: 2rem;
+            font-size: 2.1rem;
             font-weight: 700;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
         }
         .stat-label {
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             color: var(--text-secondary);
+            font-weight: 500;
         }
-        .section-header {
+
+        /* ========== 工具栏 ========== */
+        .toolbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 24px;
+            margin-bottom: var(--space-lg);
+            gap: var(--space-md);
+            flex-wrap: wrap;
         }
         .section-title {
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: var(--space-sm);
+            letter-spacing: -0.01em;
+        }
+        .section-title-count {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            font-weight: 500;
+            padding: 3px 10px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-full);
+        }
+        .toolbar-right {
+            display: flex;
+            gap: var(--space-sm);
+            align-items: center;
+            flex-wrap: wrap;
         }
         .search-box {
             position: relative;
@@ -170,20 +311,23 @@
         }
         .search-box input {
             width: 100%;
-            padding: 12px 16px 12px 42px;
+            padding: 11px 16px 11px 42px;
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
             color: var(--text);
-            font-size: 0.95rem;
+            font-size: 0.92rem;
+            font-family: inherit;
             outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+            backdrop-filter: blur(12px);
         }
         .search-box input:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
+            background: var(--surface-hover);
         }
-        .search-box input::placeholder { color: var(--text-muted); }
+        .search-box input::placeholder { color: var(--text-dim); }
         .search-box svg {
             position: absolute;
             left: 14px;
@@ -191,97 +335,146 @@
             transform: translateY(-50%);
             width: 18px;
             height: 18px;
-            color: var(--text-muted);
+            color: var(--text-dim);
+            pointer-events: none;
         }
+
+        /* ========== 主题列表 ========== */
         .theme-list {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 24px;
+            gap: var(--space-lg);
         }
+
+        /* 骨架屏 */
+        .skeleton-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+        }
+        .skeleton-preview {
+            height: 200px;
+            background: linear-gradient(90deg, var(--surface-solid) 0%, rgba(51,65,85,0.6) 50%, var(--surface-solid) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        .skeleton-content { padding: var(--space-md); }
+        .skeleton-line {
+            height: 14px;
+            background: var(--surface-solid);
+            border-radius: var(--radius-xs);
+            margin-bottom: var(--space-sm);
+            background: linear-gradient(90deg, var(--surface-solid) 0%, rgba(51,65,85,0.6) 50%, var(--surface-solid) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        .skeleton-line:nth-child(1) { width: 60%; }
+        .skeleton-line:nth-child(2) { width: 100%; height: 12px; }
+        .skeleton-line:nth-child(3) { width: 80%; height: 12px; }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* 主题卡片 */
         .theme-item {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius);
             overflow: hidden;
-            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s, border-color 0.35s;
+            transition: transform 0.4s var(--ease-spring), box-shadow 0.4s var(--ease-smooth), border-color 0.3s;
             display: flex;
             flex-direction: column;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s var(--ease-out) forwards;
+        }
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
         }
         .theme-item:hover {
-            transform: translateY(-8px) scale(1.01);
-            box-shadow: var(--shadow);
-            border-color: rgba(99, 102, 241, 0.35);
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--border-active);
         }
         .theme-preview-wrap {
             position: relative;
             overflow: hidden;
             height: 200px;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
         }
         .theme-preview {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.6s var(--ease-out);
+            display: block;
         }
-        .theme-item:hover .theme-preview { transform: scale(1.08); }
+        .theme-item:hover .theme-preview { transform: scale(1.06); }
         .preview-overlay {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to top, rgba(15, 23, 42, 0.9) 0%, transparent 50%);
+            inset: 0;
+            background: linear-gradient(to top, rgba(11, 17, 32, 0.95) 0%, transparent 60%);
             opacity: 0;
             transition: opacity 0.3s;
         }
         .theme-item:hover .preview-overlay { opacity: 1; }
         .theme-version {
             position: absolute;
-            top: 12px;
-            right: 12px;
-            background: rgba(15, 23, 42, 0.7);
+            top: var(--space-sm);
+            right: var(--space-sm);
+            background: rgba(11, 17, 32, 0.75);
             border: 1px solid var(--border);
             padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: 0.72rem;
             font-weight: 600;
             color: var(--text);
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(8px);
+            font-family: 'JetBrains Mono', monospace;
         }
         .theme-content {
-            padding: 22px;
+            padding: var(--space-md);
             display: flex;
             flex-direction: column;
             flex: 1;
         }
         .theme-name {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: var(--space-xs);
             color: var(--text);
+            letter-spacing: -0.01em;
         }
         .theme-description {
             color: var(--text-secondary);
-            font-size: 0.92rem;
-            line-height: 1.6;
+            font-size: 0.9rem;
+            line-height: 1.65;
             flex: 1;
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
+            margin-bottom: var(--space-md);
         }
         .theme-meta {
-            margin-top: 18px;
-            padding-top: 16px;
+            padding-top: var(--space-sm);
             border-top: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             color: var(--text-muted);
         }
         .theme-author {
             display: flex;
             align-items: center;
             gap: 6px;
+            font-weight: 500;
         }
         .theme-author::before {
             content: '';
@@ -289,53 +482,76 @@
             height: 6px;
             background: var(--success);
             border-radius: 50%;
+            box-shadow: 0 0 6px var(--success);
+        }
+        .theme-short {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--text-dim);
         }
         .theme-actions {
-            margin-top: 16px;
+            margin-top: var(--space-md);
             display: flex;
-            gap: 10px;
+            gap: var(--space-sm);
         }
         .theme-btn {
             flex: 1;
-            padding: 11px 16px;
+            padding: 10px 14px;
             border-radius: var(--radius-sm);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 500;
             text-align: center;
-            transition: all 0.25s;
+            transition: all 0.25s var(--ease-smooth);
             cursor: pointer;
             border: none;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
+            font-family: inherit;
         }
         .btn-primary {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
-            box-shadow: 0 4px 15px -3px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 4px 12px -2px var(--primary-glow);
         }
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px -5px rgba(99, 102, 241, 0.5);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px -4px var(--primary-glow);
         }
+        .btn-primary:active { transform: translateY(0); }
         .btn-secondary {
-            background: transparent;
+            background: rgba(255, 255, 255, 0.04);
             color: var(--text);
             border: 1px solid var(--border);
         }
         .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(148, 163, 184, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--border-hover);
         }
+        .theme-btn svg { flex-shrink: 0; }
+
+        /* 预览图失败占位 */
+        .preview-fallback {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            gap: 8px;
+        }
+
+        /* ========== 页脚 ========== */
         footer {
-            margin-top: 64px;
-            padding-top: 32px;
+            margin-top: var(--space-xl);
+            padding-top: var(--space-lg);
             border-top: 1px solid var(--border);
             text-align: center;
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.88rem;
+            line-height: 1.8;
         }
         footer a {
             color: var(--primary-light);
@@ -343,64 +559,161 @@
             transition: color 0.2s;
         }
         footer a:hover { color: var(--text); }
-        .loading {
+
+        /* ========== 状态提示 ========== */
+        .state {
             text-align: center;
             padding: 80px 20px;
             color: var(--text-secondary);
             grid-column: 1 / -1;
         }
+        .state-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-sm);
+            opacity: 0.6;
+        }
+        .state-text { font-size: 0.95rem; }
+
         .spinner {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border: 3px solid var(--border);
             border-top-color: var(--primary);
             border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 16px;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto var(--space-sm);
         }
         @keyframes spin { to { transform: rotate(360deg); } }
-        .empty-state {
-            text-align: center;
-            padding: 80px 20px;
-            color: var(--text-secondary);
-            grid-column: 1 / -1;
+
+        /* ========== Toast 通知 ========== */
+        .toast-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+        .toast {
+            background: var(--surface-solid);
+            border: 1px solid var(--border-hover);
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
+            color: var(--text);
+            font-size: 0.9rem;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 220px;
+            backdrop-filter: blur(12px);
+            animation: toastIn 0.3s var(--ease-spring) forwards;
+            pointer-events: auto;
+        }
+        .toast.success { border-left: 3px solid var(--success); }
+        .toast.error { border-left: 3px solid #ef4444; }
+        .toast.removing { animation: toastOut 0.3s var(--ease-smooth) forwards; }
+        @keyframes toastIn {
+            from { transform: translateX(120%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes toastOut {
+            to { transform: translateX(120%); opacity: 0; }
+        }
+        .toast-icon { font-size: 1.1rem; }
+
+        /* ========== 回到顶部 ========== */
+        .back-to-top {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            width: 44px;
+            height: 44px;
+            background: var(--surface-solid);
+            border: 1px solid var(--border-hover);
+            border-radius: var(--radius-full);
+            color: var(--text);
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s var(--ease-spring);
+            backdrop-filter: blur(12px);
+            z-index: 999;
+            box-shadow: var(--shadow-md);
+        }
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .back-to-top:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        /* ========== 响应式 ========== */
+        @media (max-width: 1024px) {
+            .theme-list { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
         }
         @media (max-width: 768px) {
-            .container { padding: 20px 16px 48px; }
+            .container { padding: 20px 16px 60px; }
             header { flex-direction: column; align-items: flex-start; }
+            .data-source { width: 100%; }
+            .toolbar { flex-direction: column; align-items: stretch; }
+            .toolbar-right { width: 100%; }
             .search-box { width: 100%; }
-            .section-header { flex-direction: column; align-items: flex-start; gap: 16px; }
             .theme-list { grid-template-columns: 1fr; }
             .stats { grid-template-columns: 1fr; }
+            .brand-text h1 { font-size: 1.6rem; }
+            .toast-container { left: 16px; right: 16px; bottom: 16px; }
+            .toast { min-width: 0; }
+            .back-to-top { left: 16px; bottom: 16px; }
         }
+        @media (max-width: 480px) {
+            .theme-actions { flex-direction: column; }
+            .stat-card { padding: var(--space-sm) var(--space-md); }
+            .stat-number { font-size: 1.7rem; }
+        }
+
+        /* 减少动画偏好 */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
             }
+            body::before { animation: none; }
         }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <header>
             <div class="brand">
                 <div class="logo">🎨</div>
-                <div>
+                <div class="brand-text">
                     <h1>Komari Market</h1>
                     <p>自动同步上游仓库，国内加速访问</p>
                 </div>
             </div>
             <div class="data-source">
                 <div class="data-source-label">数据源</div>
-                <a href="https://komari-market.mikus.ink/v1.json" target="_blank">komari-market.mikus.ink/v1.json</a>
+                <a href="https://komari-market.mikus.ink/v1.json" target="_blank" rel="noopener">komari-market.mikus.ink/v1.json</a>
             </div>
         </header>
 
-        <div class="stats">
+        <section class="stats" aria-label="统计信息">
             <div class="stat-card">
                 <div class="stat-icon">📦</div>
                 <div class="stat-number" id="theme-count">-</div>
@@ -416,37 +729,50 @@
                 <div class="stat-number">CDN</div>
                 <div class="stat-label">国内加速</div>
             </div>
-        </div>
+        </section>
 
-        <div class="section-header">
-            <h2 class="section-title">🌈 主题列表</h2>
-            <div class="search-box">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
-                <input type="text" id="search-input" placeholder="搜索主题...">
+        <div class="toolbar">
+            <h2 class="section-title">
+                🌈 主题列表
+                <span class="section-title-count" id="visible-count">-</span>
+            </h2>
+            <div class="toolbar-right">
+                <div class="search-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+                    <input type="text" id="search-input" placeholder="搜索主题名称、作者..." aria-label="搜索主题">
+                </div>
             </div>
         </div>
 
-        <div class="theme-list" id="theme-list">
-            <div class="loading">
+        <main class="theme-list" id="theme-list">
+            <div class="state">
                 <div class="spinner"></div>
-                正在加载主题...
+                <div class="state-text">正在加载主题...</div>
             </div>
-        </div>
+        </main>
 
         <footer>
-            <p>数据来源：<a href="https://github.com/komari-monitor/theme-market" target="_blank">komari-monitor/theme-market</a></p>
-            <p style="margin-top: 8px;">托管于 <a href="https://cloud.tencent.com/product/eo" target="_blank">EdgeOne Pages</a>，所有资源通过 CDN 加速分发</p>
+            <p>数据来源：<a href="https://github.com/komari-monitor/theme-market" target="_blank" rel="noopener">komari-monitor/theme-market</a></p>
+            <p>托管于 <a href="https://cloud.tencent.com/product/eo" target="_blank" rel="noopener">EdgeOne Pages</a>，所有资源通过 CDN 加速分发</p>
         </footer>
     </div>
+
+    <button class="back-to-top" id="back-to-top" aria-label="回到顶部">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"></path></svg>
+    </button>
+
+    <div class="toast-container" id="toast-container" aria-live="polite"></div>
 
     <script>
         let allThemes = [];
 
+        // ========== 工具函数 ==========
         function formatRelativeTime(dateString) {
             if (!dateString) return '-';
             const date = new Date(dateString);
             const now = new Date();
             const diff = now - date;
+            if (diff < 0) return '刚刚';
             if (diff < 60000) return '刚刚';
             if (diff < 3600000) return Math.floor(diff / 60000) + ' 分钟前';
             if (diff < 86400000) return Math.floor(diff / 3600000) + ' 小时前';
@@ -454,43 +780,100 @@
             return date.toLocaleDateString('zh-CN');
         }
 
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            const icon = type === 'success' ? '✓' : type === 'error' ? '✗' : 'ℹ';
+            toast.innerHTML = `<span class="toast-icon">${icon}</span><span>${escapeHtml(message)}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.add('removing');
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
+        }
+
+        // ========== 骨架屏 ==========
+        function renderSkeleton(count = 6) {
+            const themeList = document.getElementById('theme-list');
+            let html = '';
+            for (let i = 0; i < count; i++) {
+                html += `
+                    <div class="skeleton-card">
+                        <div class="skeleton-preview"></div>
+                        <div class="skeleton-content">
+                            <div class="skeleton-line"></div>
+                            <div class="skeleton-line"></div>
+                            <div class="skeleton-line"></div>
+                        </div>
+                    </div>
+                `;
+            }
+            themeList.innerHTML = html;
+        }
+
+        // ========== 渲染主题 ==========
         function renderThemes(themes) {
             const themeList = document.getElementById('theme-list');
+            const visibleCount = document.getElementById('visible-count');
+            visibleCount.textContent = `${themes.length} / ${allThemes.length}`;
 
             if (themes.length === 0) {
-                themeList.innerHTML = '<div class="empty-state">未找到匹配的主题</div>';
+                themeList.innerHTML = `
+                    <div class="state">
+                        <div class="state-icon">🔍</div>
+                        <div class="state-text">未找到匹配的主题</div>
+                    </div>
+                `;
                 return;
             }
 
             themeList.innerHTML = '';
-            themes.forEach(theme => {
-                const name = theme.name['zh-CN'] || theme.name;
+            themes.forEach((theme, index) => {
+                const name = theme.name['zh-CN'] || theme.name || '未命名主题';
                 const description = theme.description['zh-CN'] || theme.description || '暂无描述';
-                const author = theme.author['zh-CN'] || theme.author;
+                const author = theme.author['zh-CN'] || theme.author || '匿名';
                 const previewUrl = theme.preview;
                 const downloadUrl = theme.download;
+                const short = theme.short || '';
+                const version = theme.version || '';
 
-                const themeCard = document.createElement('div');
+                const themeCard = document.createElement('article');
                 themeCard.className = 'theme-item';
+                themeCard.style.animationDelay = `${Math.min(index * 40, 400)}ms`;
                 themeCard.innerHTML = `
                     <div class="theme-preview-wrap">
-                        <img src="${previewUrl}" alt="${name}" class="theme-preview" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #1e293b 0%, #334155 100%)'; this.parentElement.innerHTML+='<div style=display:flex;align-items:center;justify-content:center;height:100%;color:#64748b;font-size:0.9rem;>预览图加载失败</div>'">
+                        <img src="${escapeHtml(previewUrl)}" alt="${escapeHtml(name)}" class="theme-preview" loading="lazy" onerror="this.style.display='none'; this.parentElement.querySelector('.preview-fallback')?.style.removeProperty('display')">
+                        <div class="preview-fallback" style="display:none">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path></svg>
+                            <span>预览图加载失败</span>
+                        </div>
                         <div class="preview-overlay"></div>
-                        <div class="theme-version">v${theme.version}</div>
+                        ${version ? `<div class="theme-version">v${escapeHtml(version)}</div>` : ''}
                     </div>
                     <div class="theme-content">
-                        <div class="theme-name">${name}</div>
-                        <div class="theme-description">${description}</div>
+                        <div class="theme-name">${escapeHtml(name)}</div>
+                        <div class="theme-description">${escapeHtml(description)}</div>
                         <div class="theme-meta">
-                            <span class="theme-author">${author}</span>
-                            <span>${theme.short}</span>
+                            <span class="theme-author">${escapeHtml(author)}</span>
+                            ${short ? `<span class="theme-short">${escapeHtml(short)}</span>` : ''}
                         </div>
                         <div class="theme-actions">
-                            <a href="${theme.url}" target="_blank" class="theme-btn btn-secondary">
+                            <a href="${escapeHtml(theme.url || '#')}" target="_blank" rel="noopener" class="theme-btn btn-secondary" aria-label="查看 ${escapeHtml(name)} 详情">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
                                 详情
                             </a>
-                            <a href="${downloadUrl}" class="theme-btn btn-primary" download>
+                            <a href="${escapeHtml(downloadUrl || '#')}" class="theme-btn btn-primary" download aria-label="下载 ${escapeHtml(name)}">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                                 下载
                             </a>
@@ -498,42 +881,82 @@
                     </div>
                 `;
 
+                // 下载按钮点击提示
+                const downloadBtn = themeCard.querySelector('.btn-primary');
+                downloadBtn.addEventListener('click', () => {
+                    showToast(`开始下载：${name}`, 'success');
+                });
+
                 themeList.appendChild(themeCard);
             });
         }
 
+        // ========== 搜索过滤 ==========
+        function filterThemes(query) {
+            const q = query.toLowerCase().trim();
+            if (!q) return allThemes;
+            return allThemes.filter(theme => {
+                const name = (theme.name['zh-CN'] || theme.name || '').toLowerCase();
+                const desc = (theme.description['zh-CN'] || theme.description || '').toLowerCase();
+                const author = (theme.author['zh-CN'] || theme.author || '').toLowerCase();
+                const short = (theme.short || '').toLowerCase();
+                return name.includes(q) || desc.includes(q) || author.includes(q) || short.includes(q);
+            });
+        }
+
+        // ========== 加载主题 ==========
         async function loadThemes() {
+            renderSkeleton(6);
             try {
                 const response = await fetch('./v1.json');
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 const data = await response.json();
 
-                allThemes = data.themes;
+                allThemes = data.themes || [];
 
                 document.getElementById('theme-count').textContent = allThemes.length;
                 document.getElementById('sync-time').textContent = formatRelativeTime(data.updated_at);
 
                 renderThemes(allThemes);
 
+                // 搜索防抖
+                let searchTimer;
                 document.getElementById('search-input').addEventListener('input', (e) => {
-                    const query = e.target.value.toLowerCase().trim();
-                    const filtered = allThemes.filter(theme => {
-                        const name = (theme.name['zh-CN'] || theme.name).toLowerCase();
-                        const desc = (theme.description['zh-CN'] || theme.description || '').toLowerCase();
-                        const author = (theme.author['zh-CN'] || theme.author).toLowerCase();
-                        const short = (theme.short || '').toLowerCase();
-                        return name.includes(query) || desc.includes(query) || author.includes(query) || short.includes(query);
-                    });
-                    renderThemes(filtered);
+                    clearTimeout(searchTimer);
+                    searchTimer = setTimeout(() => {
+                        renderThemes(filterThemes(e.target.value));
+                    }, 150);
                 });
 
                 console.log(`✅ 加载了 ${allThemes.length} 个主题`);
             } catch (error) {
                 console.error('加载主题失败:', error);
-                document.getElementById('theme-list').innerHTML = '<div class="empty-state">加载失败，请刷新页面重试</div>';
+                document.getElementById('theme-list').innerHTML = `
+                    <div class="state">
+                        <div class="state-icon">⚠️</div>
+                        <div class="state-text">加载失败，请刷新页面重试</div>
+                    </div>
+                `;
+                showToast('加载主题失败', 'error');
             }
         }
 
-        window.addEventListener('DOMContentLoaded', loadThemes);
+        // ========== 回到顶部 ==========
+        function initBackToTop() {
+            const btn = document.getElementById('back-to-top');
+            window.addEventListener('scroll', () => {
+                btn.classList.toggle('visible', window.scrollY > 400);
+            }, { passive: true });
+            btn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        // ========== 初始化 ==========
+        window.addEventListener('DOMContentLoaded', () => {
+            loadThemes();
+            initBackToTop();
+        });
     </script>
 </body>
 </html>
