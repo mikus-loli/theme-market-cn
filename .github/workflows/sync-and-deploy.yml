@@ -93,9 +93,9 @@ jobs:
             cat data/.sync-meta.json
           fi
 
-      - name: Commit dist resources (CDN assets) and trigger EdgeOne
+      - name: Trigger EdgeOne deployment
         run: |
-          git add dist/
+          git add dist/ -f
           if git diff --cached --quiet; then
             echo "dist 无变化，创建空提交触发 EdgeOne 部署"
             git commit --allow-empty -m "chore: 触发 EdgeOne 部署 $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
