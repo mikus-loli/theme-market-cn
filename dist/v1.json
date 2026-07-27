@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-07-26T23:27:32.429Z",
+  "updated_at": "2026-07-27T14:19:09.123Z",
   "themes": [
     {
       "name": {
@@ -180,6 +180,17 @@
       "sha256": "8439aeca19d57d57d7bedeee4f8d508b20df97b21d7e4fe1eb53b6242e8ff68f"
     },
     {
+      "name": "Komari Material",
+      "short": "Material",
+      "description": "A Material Design 3 theme for Komari Monitor",
+      "version": "1.1.4",
+      "author": "Liebesfreud",
+      "url": "https://github.com/Liebesfreud/Komari-Material",
+      "preview": "https://komari-market.mikus.ink/resources/Material-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/Material-1.1.4.zip",
+      "sha256": "88d71c6b020596c90d47fe0de970a1e26ea461df70cfb8a028e3be008d846885"
+    },
+    {
       "name": "Komari Mikus",
       "short": "Mikus",
       "description": "A modern, elegant Komari monitoring theme with light/dark switching and responsive grid and table views.",
@@ -247,12 +258,12 @@
       "name": "Nezha",
       "short": "nezha",
       "description": "Nezha Theme for Komari Monitor",
-      "version": "3.0.1",
+      "version": "3.0.5",
       "author": "Nomi",
       "url": "https://github.com/nuomiiiii/nezha",
       "preview": "https://komari-market.mikus.ink/resources/nezha-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/nezha-3.0.1.zip",
-      "sha256": "983ebe781e9c02b54c1294a4bc0b5612dd9a06202ad60c9b9541801818b79a5e"
+      "download": "https://komari-market.mikus.ink/resources/nezha-3.0.5.zip",
+      "sha256": "970ce21d470cb5116f66697ac0624d6490abe74efc45357c29a43b8ee8a9f0be"
     },
     {
       "name": {
