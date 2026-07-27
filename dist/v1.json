@@ -1,0 +1,380 @@
+{
+  "schema": 1,
+  "updated_at": "2026-07-26T23:27:32.429Z",
+  "themes": [
+    {
+      "name": {
+        "zh-CN": "Komari Theme Commander",
+        "en": "Komari Theme Commander"
+      },
+      "short": "Commander",
+      "description": {
+        "zh-CN": "赛博朋克命令终端主题，带 3D 地球与 HUD 风格节点卡片。",
+        "en": "A cyberpunk command terminal theme with an interactive 3D globe and HUD-style node cards."
+      },
+      "version": "1.5.4",
+      "author": {
+        "zh-CN": "WayJam",
+        "en": "WayJam"
+      },
+      "url": "https://github.com/wayjam/komari-theme-commander",
+      "preview": "https://komari-market.mikus.ink/resources/Commander-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/Commander-1.5.4.zip",
+      "sha256": "67000fc43933547fbb22d8598532b03ccd3b1711e69b9c25536c2672fbeb2537"
+    },
+    {
+      "name": {
+        "zh-CN": "Komari Emerald",
+        "en": "Komari Emerald"
+      },
+      "short": "Emerald",
+      "description": {
+        "zh-CN": "翡翠配色的 Komari 主题。",
+        "en": "An emerald theme for Komari."
+      },
+      "version": "1.0.5",
+      "author": {
+        "zh-CN": "Tokinx",
+        "en": "Tokinx"
+      },
+      "url": "https://github.com/Tokinx/komari-theme-emerald",
+      "preview": "https://komari-market.mikus.ink/resources/Emerald-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/Emerald-1.0.5.zip",
+      "sha256": "06c3f89fa706a5df5755a3901392bde805079257876272e017444eafbf0380a2"
+    },
+    {
+      "name": "Komari Glass",
+      "short": "Glass",
+      "description": "一个轻量的Komari主题。",
+      "version": "1.0.4",
+      "author": "mengying",
+      "url": "https://github.com/imengying/Komari-Glass",
+      "preview": "https://komari-market.mikus.ink/resources/Glass-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/Glass-1.0.4.zip",
+      "sha256": "da4b2514c745e4f6252b4aed497d868b646e01b99bf5ec5d39ed1321fc88001d"
+    },
+    {
+      "name": "Komari Glassmorphism",
+      "short": "Glassmorphism",
+      "description": "A Glassmorphism theme for Komari",
+      "version": "3.3.0",
+      "author": "sanrokamlan",
+      "url": "https://github.com/sanrokamlan-prog/komari-theme-Glassmorphism",
+      "preview": "https://komari-market.mikus.ink/resources/Glassmorphism-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/Glassmorphism-3.3.0.zip",
+      "sha256": "c5656046ad67f7f3cd9aa1076f55eedbab7c63796f76d0a0fbd377f528290359"
+    },
+    {
+      "name": "ServerStatus-Hotaru",
+      "short": "Hotaru",
+      "description": "ServerStatus-Hotaru theme for Komari Monitor. This theme is no longer maintained.",
+      "version": "1.0.0",
+      "author": "cokemine & Claude Sonnet 4",
+      "url": "https://github.com/cokemine/ServerStatus-Hotaru",
+      "preview": "https://komari-market.mikus.ink/resources/Hotaru-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/Hotaru-1.0.0.zip",
+      "sha256": "b5d86521b2614b2ddd85ec049a80f2e9e739a1de77992fd43a15db049facd5d2"
+    },
+    {
+      "name": {
+        "zh-CN": "Komari Deer",
+        "en": "Komari Deer"
+      },
+      "short": "komari-deer",
+      "description": {
+        "zh-CN": "鹿主题的 Komari Monitor 仪表盘。",
+        "en": "A deer-themed Komari Monitor dashboard."
+      },
+      "version": "0.1.0",
+      "author": {
+        "zh-CN": "DeerYang",
+        "en": "DeerYang"
+      },
+      "url": "https://github.com/DeerYang/komari-deer",
+      "preview": "https://komari-market.mikus.ink/resources/komari-deer-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/komari-deer-0.1.0.zip",
+      "sha256": "6b77652e3472cc0ac5ede3e10eaa511e3f7e3251181ef3f930ecf06dc0283b6f"
+    },
+    {
+      "name": {
+        "zh-CN": "Komari Next Pro",
+        "en": "Komari Next Pro"
+      },
+      "short": "komari-next-pro",
+      "description": {
+        "zh-CN": "DStatus 风格界面，包含资产面板、IP 信息与流媒体解锁集成。",
+        "en": "A DStatus-style Komari theme with an asset dashboard, IP information and stream unlock integration."
+      },
+      "version": "2.0.0",
+      "author": {
+        "zh-CN": "LIU",
+        "en": "LIU"
+      },
+      "url": "https://github.com/fanchengliu/komari-next-pro",
+      "preview": "https://komari-market.mikus.ink/resources/komari-next-pro-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/komari-next-pro-2.0.0.zip",
+      "sha256": "e557a5fe89eab5ec0b553f631511e499a01b611481e13771e8c5d3f8268b50ba"
+    },
+    {
+      "name": "Kumo for Komari",
+      "short": "Kumo",
+      "description": "一个基于 Cloudflare Kumo 设计系统构建的简洁响应式 Komari 监控主题。",
+      "version": "1.3.2",
+      "author": "Yuanhhs",
+      "url": "https://github.com/yuanhhs/komari-theme-kumo",
+      "preview": "https://komari-market.mikus.ink/resources/Kumo-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/Kumo-1.3.2.zip",
+      "sha256": "52915687bfa3c5540a1faae6d37215106772badea042d5b971482227d77e248a"
+    },
+    {
+      "name": "LeoNetLab Observatory",
+      "short": "LeoNetLab",
+      "description": "A theme for Komari, based on Komari Emerald",
+      "version": "1.3.0",
+      "author": "LeoNetLab",
+      "url": "https://github.com/LeonR-92/komari-theme-leonetlab",
+      "preview": "https://komari-market.mikus.ink/resources/LeoNetLab-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/LeoNetLab-1.3.0.zip",
+      "sha256": "2fc3daa049a191495b75a03c8ebd10e0f46bacf4eb0fee14a0cd9cfa70f8df4a"
+    },
+    {
+      "name": "Komari Theme Light",
+      "short": "light",
+      "description": "A clean and simple light theme for Komari Monitor with multiple color variations.",
+      "version": "1.1.1",
+      "author": "uvexz",
+      "url": "https://github.com/uvexz/komari-theme-light",
+      "preview": "https://komari-market.mikus.ink/resources/light-preview.webp",
+      "download": "https://komari-market.mikus.ink/resources/light-1.1.1.zip",
+      "sha256": "c4b9bdb72eccca0f101aa05557d81e7bf27b283832f796a51fff3f6134e10d26"
+    },
+    {
+      "name": {
+        "zh-CN": "Lumina",
+        "en": "Lumina"
+      },
+      "short": "Lumina",
+      "description": {
+        "zh-CN": "Komari Lumina 主题。",
+        "en": "A Komari Lumina theme."
+      },
+      "version": "1.1.6",
+      "author": {
+        "zh-CN": "shark 与 Codex",
+        "en": "shark & Codex"
+      },
+      "url": "https://github.com/stqfdyr/komari-theme-Lumina",
+      "preview": "https://komari-market.mikus.ink/resources/Lumina-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/Lumina-1.1.6.zip",
+      "sha256": "a8847c40ee59bc3ab8d9f9173f34d4aa8a2a1f51ada8b5075901a677352038a5"
+    },
+    {
+      "name": "Komari-Theme-LuminaPlus",
+      "short": "LuminaPlus",
+      "description": "Komari-Theme-LuminaPlus",
+      "version": "1.2.6",
+      "author": "shark&shanyang",
+      "url": "https://github.com/shanyang242/Komari-Theme-LuminaPlus",
+      "preview": "https://komari-market.mikus.ink/resources/LuminaPlus-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/LuminaPlus-1.2.6.zip",
+      "sha256": "8439aeca19d57d57d7bedeee4f8d508b20df97b21d7e4fe1eb53b6242e8ff68f"
+    },
+    {
+      "name": "Komari Mikus",
+      "short": "Mikus",
+      "description": "A modern, elegant Komari monitoring theme with light/dark switching and responsive grid and table views.",
+      "version": "2.0.4",
+      "author": "Miku",
+      "url": "https://github.com/mikus-loli/komari-mikus",
+      "preview": "https://komari-market.mikus.ink/resources/Mikus-preview.webp",
+      "download": "https://komari-market.mikus.ink/resources/Mikus-2.0.4.zip",
+      "sha256": "deff3b30dc0f88f455dad4d752be80b0bcbb4b060a11ede7361ffaeae4e20b63"
+    },
+    {
+      "name": "Komari Web Mochi",
+      "short": "Mochi",
+      "description": "Another Komari Web Theme",
+      "version": "1.1.8",
+      "author": "Mochi DEV Team",
+      "url": "https://github.com/svnmoe/komari-web-mochi",
+      "preview": "https://komari-market.mikus.ink/resources/Mochi-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/Mochi-1.1.8.zip",
+      "sha256": "60e2f2e42ae8a8921972adeec74c5920e7501d1c6ca3a070149ecf01f7e092b4"
+    },
+    {
+      "name": "Komari Naive",
+      "short": "Naive",
+      "description": "A Naive UI theme for Komari.",
+      "version": "1.1.2",
+      "author": "lyimoexiao",
+      "url": "https://github.com/lyimoexiao/komari-theme-naive",
+      "preview": "https://komari-market.mikus.ink/resources/Naive-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/Naive-1.1.2.zip",
+      "sha256": "0162cbb775e86fd900f49980ccb0f37335015dca27a22709313dbbfb7421a12d"
+    },
+    {
+      "name": {
+        "zh-CN": "Komari NanoMuse 面板",
+        "en": "Komari NanoMuse Panel"
+      },
+      "short": "NanoMuse",
+      "description": {
+        "zh-CN": "电子二次元监控面板主题，融合动漫 HUD 与稳定性面板。",
+        "en": "An anime HUD and light sci-fi Komari dashboard with a built-in stability panel."
+      },
+      "version": "1.3.1",
+      "author": {
+        "zh-CN": "Miuler",
+        "en": "Miuler"
+      },
+      "url": "https://github.com/saladinxp/komari-nano-muse",
+      "preview": "https://komari-market.mikus.ink/resources/NanoMuse-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/NanoMuse-1.3.1.zip",
+      "sha256": "05107dcead33196257751894810edf139740e0846034b2087c89b2d859213d2a"
+    },
+    {
+      "name": "Komari Next",
+      "short": "next",
+      "description": "Next.js theme for Komari Monitor with multiple layouts, color schemes and status views.",
+      "version": "1.4.19",
+      "author": "tonyliuzj",
+      "url": "https://github.com/tonyliuzj/komari-next",
+      "preview": "https://komari-market.mikus.ink/resources/next-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/next-1.4.19.zip",
+      "sha256": "94c9fff9830266013ef2cbd02fe02a4773d3a88606f3b28b627a77b2ce3a11ae"
+    },
+    {
+      "name": "Nezha",
+      "short": "nezha",
+      "description": "Nezha Theme for Komari Monitor",
+      "version": "3.0.1",
+      "author": "Nomi",
+      "url": "https://github.com/nuomiiiii/nezha",
+      "preview": "https://komari-market.mikus.ink/resources/nezha-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/nezha-3.0.1.zip",
+      "sha256": "983ebe781e9c02b54c1294a4bc0b5612dd9a06202ad60c9b9541801818b79a5e"
+    },
+    {
+      "name": {
+        "zh-CN": "nezha-BITJEBE",
+        "en": "nezha-BITJEBE"
+      },
+      "short": "nezha-BITJEBE",
+      "description": {
+        "zh-CN": "由 Nezha Dash V1 与 nezha-dash 衍生的 Komari 主题。",
+        "en": "A Komari theme derived from Nezha Dash V1 and nezha-dash."
+      },
+      "version": "1.1.7",
+      "author": {
+        "zh-CN": "BITJEBE",
+        "en": "BITJEBE"
+      },
+      "url": "https://github.com/BITJEBE/nezha-BITJEBE",
+      "preview": "https://komari-market.mikus.ink/resources/nezha-BITJEBE-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/nezha-BITJEBE-1.1.7.zip",
+      "sha256": "3cb85f96581c6caf8e85c6bdec0c1f6bd1df37e5a16b8326a39ab6c8b9678936"
+    },
+    {
+      "name": {
+        "zh-CN": "Nezha Minimal",
+        "en": "Nezha Minimal"
+      },
+      "short": "nezha-minimal",
+      "description": {
+        "zh-CN": "纯色极简风格 Komari 主题。",
+        "en": "A solid-color minimal theme for Komari."
+      },
+      "version": "1.1.20",
+      "author": {
+        "zh-CN": "Komari Community",
+        "en": "Komari Community"
+      },
+      "url": "https://github.com/zleywb/nezha-minimal",
+      "preview": "https://komari-market.mikus.ink/resources/nezha-minimal-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/nezha-minimal-1.1.20.zip",
+      "sha256": "1d8193d03f67e147abe2a4fc161dacb22499ed8db76e93ec7fdd54f2dabde8c2"
+    },
+    {
+      "name": {
+        "zh-CN": "Komari Paper",
+        "en": "Komari Paper"
+      },
+      "short": "paper",
+      "description": {
+        "zh-CN": "暖色纸张与手写风格的编辑式 Komari 主题。",
+        "en": "An editorial Komari theme with warm paper, serif type and handwritten accents."
+      },
+      "version": "26.07.25",
+      "author": {
+        "zh-CN": "wood",
+        "en": "wood"
+      },
+      "url": "https://github.com/woodchen-ink/komari-paper",
+      "preview": "https://komari-market.mikus.ink/resources/paper-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/paper-26.07.25.zip",
+      "sha256": "94dd5f607752e36bc688960d20f860a8c5a77aaf734df5e476ce01eb88a5026f"
+    },
+    {
+      "name": "Komari Theme PurCarte",
+      "short": "PurCarte",
+      "description": "A frosted glass theme for Komari.",
+      "version": "1.2.5",
+      "author": "Montia & Gemini",
+      "url": "https://github.com/Montia37/komari-theme-purcarte",
+      "preview": "https://komari-market.mikus.ink/resources/PurCarte-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/PurCarte-1.2.5.zip",
+      "sha256": "a63d5294d92fb5ed1ff66134ccca5d7b0fb2f76d9ec258ba41e5e46dd33a9c31"
+    },
+    {
+      "name": {
+        "zh-CN": "Komari Theme PurCarte Plus",
+        "en": "Komari Theme PurCarte Plus"
+      },
+      "short": "PurCarte-Plus",
+      "description": {
+        "zh-CN": "一款为 Komari 设计的磨砂玻璃风格个性化增强版主题",
+        "en": "An enhanced, personalized frosted glass theme for Komari."
+      },
+      "version": "2026.07.21.1",
+      "author": {
+        "zh-CN": "YannickYoung 与 Codex",
+        "en": "YannickYoung & Codex"
+      },
+      "url": "https://github.com/YoungYannick/komari-theme-purcarte-plus",
+      "preview": "https://komari-market.mikus.ink/resources/PurCarte-Plus-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/PurCarte-Plus-2026.07.21.1.zip",
+      "sha256": "efdccc6666b62728add46541e2806a1555a2c535341c4a0123e397162ce06a2a"
+    },
+    {
+      "name": {
+        "zh-CN": "岚 (Ran)",
+        "en": "Ran"
+      },
+      "short": "ran",
+      "description": {
+        "zh-CN": "精密金工质感的 Komari 主题，提供深浅多配色。",
+        "en": "A precision-machined hi-fi inspired Komari theme with multiple light and dark colorways."
+      },
+      "version": "2.1.2",
+      "author": {
+        "zh-CN": "Miuler",
+        "en": "Miuler"
+      },
+      "url": "https://github.com/saladinxp/komari-ran-theme",
+      "preview": "https://komari-market.mikus.ink/resources/ran-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/ran-2.1.2.zip",
+      "sha256": "4ea93085644626a5208fcd66204aab7c9da6f910214881b903825f91cd760791"
+    },
+    {
+      "name": "ServerSentry Komari",
+      "short": "ServerSentry",
+      "description": "基于 Next.js 的现代化服务器监控主题。",
+      "version": "1.0.4",
+      "author": "Asahina1096",
+      "url": "https://github.com/Asahina1096/ServerSentry-Komari",
+      "preview": "https://komari-market.mikus.ink/resources/ServerSentry-preview.webp",
+      "download": "https://komari-market.mikus.ink/resources/ServerSentry-1.0.4.zip",
+      "sha256": "820d0de25082ae8cf73e60e91c2dac78bbd32da60c3f0c92e88e3cd2b9a8646c"
+    }
+  ]
+}
