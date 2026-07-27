@@ -93,7 +93,7 @@ jobs:
             cat data/.sync-meta.json
           fi
 
-           - name: Commit dist resources (CDN assets) and trigger EdgeOne
+          - name: Commit dist resources (CDN assets) and trigger EdgeOne
         run: |
           git add dist/
           if git diff --cached --quiet; then
