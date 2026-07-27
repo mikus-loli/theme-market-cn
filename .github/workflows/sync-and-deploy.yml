@@ -93,15 +93,16 @@ jobs:
             cat data/.sync-meta.json
           fi
 
-      - name: Commit dist resources (CDN assets)
+           - name: Commit dist resources (CDN assets) and trigger EdgeOne
         run: |
-          if [ -z "$(git status --porcelain dist/)" ]; then
-            echo "dist 无变化，跳过提交"
+          git add dist/
+          if git diff --cached --quiet; then
+            echo "dist 无变化，创建空提交触发 EdgeOne 部署"
+            git commit --allow-empty -m "chore: 触发 EdgeOne 部署 $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
           else
-            git add dist/
             git commit -m "chore: 更新构建产物与加速资源 $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-            git push
           fi
+          git push
 
       - name: Deploy to EdgeOne Pages
         env:
