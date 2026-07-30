@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-07-29T02:01:55.390Z",
+  "updated_at": "2026-07-30T03:23:48.524Z",
   "themes": [
     {
       "name": {
@@ -32,15 +32,15 @@
         "zh-CN": "翡翠配色的 Komari 主题。",
         "en": "An emerald theme for Komari."
       },
-      "version": "1.0.5",
+      "version": "1.0.6",
       "author": {
         "zh-CN": "Tokinx",
         "en": "Tokinx"
       },
       "url": "https://github.com/Tokinx/komari-theme-emerald",
       "preview": "https://komari-market.mikus.ink/resources/Emerald-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/Emerald-1.0.5.zip",
-      "sha256": "06c3f89fa706a5df5755a3901392bde805079257876272e017444eafbf0380a2"
+      "download": "https://komari-market.mikus.ink/resources/Emerald-1.0.6.zip",
+      "sha256": "d7bc292f796b3bb0f2ad9b653544d04e4b75c81a69e1d52838e682db5fc52da4"
     },
     {
       "name": "Komari Glass",
@@ -57,12 +57,12 @@
       "name": "Komari Glassmorphism",
       "short": "Glassmorphism",
       "description": "A Glassmorphism theme for Komari",
-      "version": "3.3.0",
+      "version": "3.3.2",
       "author": "sanrokamlan",
       "url": "https://github.com/sanrokamlan-prog/komari-theme-Glassmorphism",
       "preview": "https://komari-market.mikus.ink/resources/Glassmorphism-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/Glassmorphism-3.3.0.zip",
-      "sha256": "c5656046ad67f7f3cd9aa1076f55eedbab7c63796f76d0a0fbd377f528290359"
+      "download": "https://komari-market.mikus.ink/resources/Glassmorphism-3.3.2.zip",
+      "sha256": "f2ef3697197abbf0b10ee09bd7be184051d66ac71770273ab687c65ebf0514cd"
     },
     {
       "name": "ServerStatus-Hotaru",
@@ -74,6 +74,17 @@
       "preview": "https://komari-market.mikus.ink/resources/Hotaru-preview.png",
       "download": "https://komari-market.mikus.ink/resources/Hotaru-1.0.0.zip",
       "sha256": "b5d86521b2614b2ddd85ec049a80f2e9e739a1de77992fd43a15db049facd5d2"
+    },
+    {
+      "name": "Komari 1999",
+      "short": "komari-1999",
+      "description": "Neo-Brutalism themed dashboard for Komari Monitor",
+      "version": "1.0.1",
+      "author": "ricebucket",
+      "url": "https://github.com/r1cebucket/komari-theme-1999",
+      "preview": "https://komari-market.mikus.ink/resources/komari-1999-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/komari-1999-1.0.1.zip",
+      "sha256": "af44b99a0255f8e2b38880358d7fbc5efb8c83306a7e236eeaef84913ea907bc"
     },
     {
       "name": {
@@ -119,12 +130,23 @@
       "name": "Komari Carbon",
       "short": "komari-theme-carbon",
       "description": "IBM Carbon + IBM Plex style Komari monitoring theme",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "author": "gengyue2468",
       "url": "https://github.com/gengyue2468/komari-theme-carbon",
       "preview": "https://komari-market.mikus.ink/resources/komari-theme-carbon-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/komari-theme-carbon-0.1.2.zip",
-      "sha256": "7c7f28f566909a15947e6b66e50d15ffa655c073865826c01d728dcf3721b5bf"
+      "download": "https://komari-market.mikus.ink/resources/komari-theme-carbon-0.1.3.zip",
+      "sha256": "7d45cd7983e13fbb906ac736f3eab685418a15dccf2d926d69da73345417b8b7"
+    },
+    {
+      "name": "Komari Home",
+      "short": "komarihome",
+      "description": "A Komari Web Theme with HomePage",
+      "version": "1.0.0",
+      "author": "mogumc",
+      "url": "https://github.com/mogumc/Komari-Home",
+      "preview": "https://komari-market.mikus.ink/resources/komarihome-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/komarihome-1.0.0.zip",
+      "sha256": "41190d93439031c441fb50a95d84816f6056a91ad653a78f33f36f69d2e54bdc"
     },
     {
       "name": "Kumo for Komari",
@@ -141,12 +163,12 @@
       "name": "LeoNetLab Observatory",
       "short": "LeoNetLab",
       "description": "A theme for Komari, based on Komari Emerald",
-      "version": "1.3.0",
+      "version": "1.3.1-R",
       "author": "LeoNetLab",
       "url": "https://github.com/LeonR-92/komari-theme-leonetlab",
       "preview": "https://komari-market.mikus.ink/resources/LeoNetLab-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/LeoNetLab-1.3.0.zip",
-      "sha256": "2fc3daa049a191495b75a03c8ebd10e0f46bacf4eb0fee14a0cd9cfa70f8df4a"
+      "download": "https://komari-market.mikus.ink/resources/LeoNetLab-1.3.1-R.zip",
+      "sha256": "427b73532a8f27a6ab3817060089cb95bdfa94cd87f5015fb6c1edf23838ebe5"
     },
     {
       "name": "Komari Theme Light",
@@ -269,12 +291,12 @@
       "name": "Nezha",
       "short": "nezha",
       "description": "Nezha Theme for Komari Monitor",
-      "version": "3.0.5",
+      "version": "3.0.6",
       "author": "Nomi",
       "url": "https://github.com/nuomiiiii/nezha",
       "preview": "https://komari-market.mikus.ink/resources/nezha-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/nezha-3.0.5.zip",
-      "sha256": "970ce21d470cb5116f66697ac0624d6490abe74efc45357c29a43b8ee8a9f0be"
+      "download": "https://komari-market.mikus.ink/resources/nezha-3.0.6.zip",
+      "sha256": "cc85e3cc21ebfc045425229c25dcad71d19a68a3c927dab46a260d5417d7e4a1"
     },
     {
       "name": {
