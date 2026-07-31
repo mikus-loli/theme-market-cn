@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-07-30T03:23:48.524Z",
+  "updated_at": "2026-07-30T23:58:45.468Z",
   "themes": [
     {
       "name": {
@@ -57,12 +57,12 @@
       "name": "Komari Glassmorphism",
       "short": "Glassmorphism",
       "description": "A Glassmorphism theme for Komari",
-      "version": "3.3.2",
+      "version": "3.3.3",
       "author": "sanrokamlan",
       "url": "https://github.com/sanrokamlan-prog/komari-theme-Glassmorphism",
       "preview": "https://komari-market.mikus.ink/resources/Glassmorphism-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/Glassmorphism-3.3.2.zip",
-      "sha256": "f2ef3697197abbf0b10ee09bd7be184051d66ac71770273ab687c65ebf0514cd"
+      "download": "https://komari-market.mikus.ink/resources/Glassmorphism-3.3.3.zip",
+      "sha256": "01a1d0111b0405f0ffaa280070d77e0dfe46bdd728edf0dbe7396a93be3ff249"
     },
     {
       "name": "ServerStatus-Hotaru",
@@ -216,12 +216,12 @@
       "name": "Komari Material",
       "short": "Material",
       "description": "A Material Design 3 theme for Komari Monitor",
-      "version": "1.1.4",
+      "version": "1.1.5",
       "author": "Liebesfreud",
       "url": "https://github.com/Liebesfreud/Komari-Material",
       "preview": "https://komari-market.mikus.ink/resources/Material-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/Material-1.1.4.zip",
-      "sha256": "88d71c6b020596c90d47fe0de970a1e26ea461df70cfb8a028e3be008d846885"
+      "download": "https://komari-market.mikus.ink/resources/Material-1.1.5.zip",
+      "sha256": "e0c4d22bdc18155a9ea1c990dd5b8e1369c1c6f26117104dda63c74b6d9d059b"
     },
     {
       "name": "Komari Mikus",
@@ -233,6 +233,17 @@
       "preview": "https://komari-market.mikus.ink/resources/Mikus-preview.webp",
       "download": "https://komari-market.mikus.ink/resources/Mikus-2.0.4.zip",
       "sha256": "deff3b30dc0f88f455dad4d752be80b0bcbb4b060a11ede7361ffaeae4e20b63"
+    },
+    {
+      "name": "MiStatus Komari",
+      "short": "MiStatus",
+      "description": "基于 Next.js 的现代化服务器监控主题",
+      "version": "2.6.0",
+      "author": "imzyb",
+      "url": "https://github.com/imzyb/MiStatus-Komari",
+      "preview": "https://komari-market.mikus.ink/resources/MiStatus-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/MiStatus-2.6.0.zip",
+      "sha256": "581f98b26b7f7d0474362e36b7d00cc29a29c29d2ad2a624d680dd99f2e6a7bf"
     },
     {
       "name": "Komari Web Mochi",
@@ -291,12 +302,12 @@
       "name": "Nezha",
       "short": "nezha",
       "description": "Nezha Theme for Komari Monitor",
-      "version": "3.0.6",
+      "version": "3.0.8",
       "author": "Nomi",
       "url": "https://github.com/nuomiiiii/nezha",
       "preview": "https://komari-market.mikus.ink/resources/nezha-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/nezha-3.0.6.zip",
-      "sha256": "cc85e3cc21ebfc045425229c25dcad71d19a68a3c927dab46a260d5417d7e4a1"
+      "download": "https://komari-market.mikus.ink/resources/nezha-3.0.8.zip",
+      "sha256": "e8f63a46fe336eac9fa4ec95d463ed78d9b2aecfa305e07035dd63f7f166e552"
     },
     {
       "name": {
