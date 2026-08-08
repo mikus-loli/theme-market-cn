@@ -1,7 +1,18 @@
 {
   "schema": 1,
-  "updated_at": "2026-08-07T07:42:11.116Z",
+  "updated_at": "2026-08-08T06:14:47.175Z",
   "themes": [
+    {
+      "name": "Komari Theme ASCII",
+      "short": "ASCII",
+      "description": "A terminal-style ASCII dashboard theme for Komari",
+      "version": "1.0",
+      "author": "faust",
+      "url": "https://github.com/facl/komari-ascii",
+      "preview": "https://komari-market.mikus.ink/resources/ASCII-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/ASCII-1.0.zip",
+      "sha256": "1215c4caf798dba5a0ab50754bb9a9c6c93b55e10ee224fa246ddb0301dae96a"
+    },
     {
       "name": {
         "zh-CN": "Komari Theme Commander",
@@ -205,12 +216,12 @@
       "name": "Komari-Theme-LuminaPlus",
       "short": "LuminaPlus",
       "description": "Komari-Theme-LuminaPlus",
-      "version": "1.2.7",
+      "version": "1.2.8",
       "author": "shark&shanyang",
       "url": "https://github.com/shanyang242/Komari-Theme-LuminaPlus",
       "preview": "https://komari-market.mikus.ink/resources/LuminaPlus-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/LuminaPlus-1.2.7.zip",
-      "sha256": "96e6b5684ee940201b6d21aa4e77144d630cb8bda071edaf1a12d566d89d34f8"
+      "download": "https://komari-market.mikus.ink/resources/LuminaPlus-1.2.8.zip",
+      "sha256": "07622b06faa4c365a0e61cb3922550fc48e770d30f1016302451e2cc7024daa3"
     },
     {
       "name": "Komari Material",
@@ -302,12 +313,12 @@
       "name": "Nezha",
       "short": "nezha",
       "description": "Nezha Theme for Komari Monitor",
-      "version": "3.0.9",
+      "version": "3.1.1",
       "author": "Nomi",
       "url": "https://github.com/nuomiiiii/nezha",
       "preview": "https://komari-market.mikus.ink/resources/nezha-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/nezha-3.0.9.zip",
-      "sha256": "262195030e047c9cadcbf089353a989aee7220620358864732e47141deacbafe"
+      "download": "https://komari-market.mikus.ink/resources/nezha-3.1.1.zip",
+      "sha256": "8552e1455325fe8ca5bca10644d91ffff1d716c1197380fa21c8bdc8f96a5784"
     },
     {
       "name": {
