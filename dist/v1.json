@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-08-20T12:24:39.266Z",
+  "updated_at": "2026-08-21T00:58:57.401Z",
   "themes": [
     {
       "name": "Adhesive Note",
@@ -118,6 +118,17 @@
       "preview": "https://komari-market.mikus.ink/resources/Hotaru-preview.png",
       "download": "https://komari-market.mikus.ink/resources/Hotaru-1.0.0.zip",
       "sha256": "b5d86521b2614b2ddd85ec049a80f2e9e739a1de77992fd43a15db049facd5d2"
+    },
+    {
+      "name": "junimo",
+      "short": "Junimo",
+      "description": "junimo",
+      "version": "2.0.1",
+      "author": "Planck",
+      "url": "https://github.com/vaspike/junimo",
+      "preview": "https://komari-market.mikus.ink/resources/Junimo-preview.png",
+      "download": "https://komari-market.mikus.ink/resources/Junimo-2.0.1.zip",
+      "sha256": "7e4bf0e231f230d5602a834e815e92aa91d52f3d388d5439386b1ba5de052978"
     },
     {
       "name": "Komari 1999",
