@@ -1,8 +1,8 @@
 {
-  "builtAt": "2026-09-23T16:19:38.925Z",
+  "builtAt": "2026-09-24T16:42:09.395Z",
   "baseUrl": "https://komari-market.mikus.ink",
   "themeCount": 51,
   "resourceTotal": 102,
-  "resourceSuccess": 102,
-  "resourceFailed": 0
+  "resourceSuccess": 101,
+  "resourceFailed": 1
 }
