@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-09-27T21:21:55.503Z",
+  "updated_at": "2026-09-29T22:16:48.907Z",
   "themes": [
     {
       "name": "Adhesive Note",
@@ -392,12 +392,12 @@
       "name": "Komari-Theme-LuminaLite",
       "short": "LuminaLite",
       "description": "Komari-Theme-LuminaLite",
-      "version": "3.0.1",
+      "version": "3.0.2",
       "author": "JohnsonRan",
       "url": "https://github.com/JohnsonRan/Komari-Theme-LuminaLite",
       "preview": "https://komari-market.mikus.ink/resources/LuminaLite-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/LuminaLite-3.0.1.zip",
-      "sha256": "329169a477eb557ed9f7ef2aaa2a1f3d483a75ea49edda51c8ada9226dea4fa7"
+      "download": "https://komari-market.mikus.ink/resources/LuminaLite-3.0.2.zip",
+      "sha256": "b3f42d338efd0fdd4dec8fdf7be1295bd5022c3a16efee5670d4285c55c38840"
     },
     {
       "name": "Komari-Theme-LuminaPlus",
@@ -428,7 +428,7 @@
       "version": "2.0.6",
       "author": "Miku",
       "url": "https://github.com/mikus-loli/komari-mikus",
-      "preview": "https://image.mikus.ink/uploads/HayasakaAi/2026/07/05/d3eab55445a8.webp",
+      "preview": "https://komari-market.mikus.ink/resources/Mikus-preview.webp",
       "download": "https://komari-market.mikus.ink/resources/Mikus-2.0.6.zip",
       "sha256": "189f29ea9e911655686d8c11b76b47f6363e108469725cfe53a4afaa0098db4f"
     },
@@ -525,8 +525,8 @@
       "version": "3.1.4",
       "author": "Nomi",
       "url": "https://github.com/nuomiiiii/nezha",
-      "preview": "https://komari-market.mikus.ink/resources/nezha-preview.png",
-      "download": "https://komari-market.mikus.ink/resources/nezha-3.1.4.zip",
+      "preview": "https://raw.githubusercontent.com/nuomiiiii/nezha/main/preview.png",
+      "download": "https://github.com/nuomiiiii/nezha/releases/download/v3.1.4/nezha-v3.1.4.zip",
       "sha256": "584ae6f47c63079c4c4b5156f32183b7593f8035d6f0f5fe768834611d824064"
     },
     {
